@@ -81,6 +81,16 @@ Type: movie
 ImdbId: tt0111507
 ```
 
+## Convert N/A to null
+When a property value is not available Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert any `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `Configuration` object.
+
+## Change log
+**v1.0.0-alpha.2**
+- Add JsonSerializerSettings and N/A Converter.
+
+**v1.0.0-alpha.1**
+- First alpha release.
+
 ## Acknowledgments
 
 Special thanks to [Open Movie Database](https://www.omdbapi.com) for providing free API services. 

@@ -11,11 +11,18 @@ namespace MovieCollection.OpenMovieDatabase
     public class Service : IService
     {
         private readonly Configuration _configuration;
+        private readonly JsonSerializerSettings _defaultJsonSettings;
 
         public Service(Configuration configuration)
             : base()
         {
             _configuration = configuration;
+            _defaultJsonSettings = new JsonSerializerSettings();
+
+            if (_configuration.ConvertNotAvailableToNull)
+            {
+                _defaultJsonSettings.Converters.Add(new Converters.NAStringConverter());
+            }
         }
 
         private UrlParameter[] GetConfigParameters()
@@ -85,7 +92,7 @@ namespace MovieCollection.OpenMovieDatabase
             string json = await GetJsonAsync(parameters);
 
             // Deserialize
-            var result = JsonConvert.DeserializeObject<Movie>(json);
+            var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
             if (result.Response == false)
@@ -107,7 +114,7 @@ namespace MovieCollection.OpenMovieDatabase
             string json = await GetJsonAsync(parameters);
 
             // Deserialize
-            var result = JsonConvert.DeserializeObject<Movie>(json);
+            var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
             if (result.Response == false)
@@ -142,7 +149,7 @@ namespace MovieCollection.OpenMovieDatabase
             string json = await GetJsonAsync(parameters);
 
             // Deserialize
-            var result = JsonConvert.DeserializeObject<Search>(json);
+            var result = JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
             if (result.Response == false)
@@ -165,7 +172,7 @@ namespace MovieCollection.OpenMovieDatabase
             string json = await GetJsonAsync(parameters);
 
             // Deserialize
-            var result = JsonConvert.DeserializeObject<Season>(json);
+            var result = JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
             if (result.Response == false)
@@ -189,7 +196,7 @@ namespace MovieCollection.OpenMovieDatabase
             string json = await GetJsonAsync(parameters);
 
             // Deserialize
-            var result = JsonConvert.DeserializeObject<Movie>(json);
+            var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
             if (result.Response == false)
