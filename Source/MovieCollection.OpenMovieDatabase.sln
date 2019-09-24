@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieCollection.OpenMovieDatabase", "MovieCollection.OpenMovieDatabase\MovieCollection.OpenMovieDatabase.csproj", "{D12F497E-23EA-4BAE-958E-0FFD76D567B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{B1F5E19E-F041-47BD-9C4E-726E5004A0FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{B1F5E19E-F041-47BD-9C4E-726E5004A0FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{46BD0FDA-1A9B-488D-8EA5-D01BE0616F86}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

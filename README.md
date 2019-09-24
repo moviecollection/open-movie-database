@@ -1,8 +1,8 @@
 ﻿[![Nuget Version](https://img.shields.io/nuget/v/MovieCollection.OpenMovieDatabase.svg?style=flat)](https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase)
 [![License](https://img.shields.io/github/license/peymanr34/open-movie-database.svg?style=flat)](LICENSE)
 
-# Open Movie Database API
-Minimal and unofficial implementation of Open Movie Database API
+# Open Movie Database API ![UNOFFICIAL](https://img.shields.io/badge/UNOFFICIAL-red)
+Minimal implementation of Open Movie Database API
 
 ## Target frameworks
 - .Net Standard 2.0
