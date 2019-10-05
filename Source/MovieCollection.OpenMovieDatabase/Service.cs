@@ -39,11 +39,7 @@ namespace MovieCollection.OpenMovieDatabase
 
             foreach (UrlParameter item in parameters)
             {
-                if (builder.Length == 0)
-                    builder.Append("?");
-                else
-                    builder.Append("&");
-
+                builder.Append(builder.Length == 0 ? "?" : "&");
                 builder.Append(item.ToString());
             }
             return builder.ToString();
@@ -68,7 +64,7 @@ namespace MovieCollection.OpenMovieDatabase
             return await Helpers.DownloadJsonAsync(url);
         }
 
-        public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieTypes type = Enums.MovieTypes.NotSpecified, Enums.PlotTypes plot = Enums.PlotTypes.Short)
+        public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, Enums.PlotType plot = Enums.PlotType.Short)
         {
             var parameters = new List<UrlParameter>()
             {
@@ -77,7 +73,7 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Movie Type [movie, series, episode]
-            if (type != Enums.MovieTypes.NotSpecified)
+            if (type != Enums.MovieType.NotSpecified)
             {
                 parameters.Add(new UrlParameter("type", type));
             }
@@ -125,7 +121,7 @@ namespace MovieCollection.OpenMovieDatabase
             return result;
         }
 
-        public async Task<Search> SearchMoviesAsync(string query, string year = "", Enums.MovieTypes type = Enums.MovieTypes.NotSpecified, int page = 1)
+        public async Task<Search> SearchMoviesAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, int page = 1)
         {
             var parameters = new List<UrlParameter>()
             {
@@ -140,7 +136,7 @@ namespace MovieCollection.OpenMovieDatabase
             }
 
             // Movie Type [movie, series, episode]
-            if (type != Enums.MovieTypes.NotSpecified)
+            if (type != Enums.MovieType.NotSpecified)
             {
                 parameters.Add(new UrlParameter("type", type));
             }

@@ -1,6 +1,6 @@
 ﻿namespace MovieCollection.OpenMovieDatabase.Enums
 {
-    public enum MovieTypes : int
+    public enum MovieType : int
     {
         NotSpecified = -1,
         Movie = 0,

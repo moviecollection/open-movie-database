@@ -1,6 +1,6 @@
 ﻿namespace MovieCollection.OpenMovieDatabase.Enums
 {
-    public enum PlotTypes : int
+    public enum PlotType : int
     {
         Short = 0,
         Full = 1
