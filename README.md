@@ -87,7 +87,7 @@ When a property value is not available Open Movie Database server returns `"N/A"
 ## Change log
 **v1.0.0-alpha.3**
 
-Rename enums due to code quality CA1717 rule:
+Rename enums due to code quality [CA1717](https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1717-only-flagsattribute-enums-should-have-plural-names) rule:
 - `MovieTypes` Changed to `MovieType`.
 - `PlotTypes` Changed to `PlotType`.
 
