@@ -1,10 +1,14 @@
 ﻿using MovieCollection.OpenMovieDatabase;
 using System;
+using System.Net.Http;
 
 namespace Demo
 {
     internal class Program
     {
+        // HttpClient is intended to be instantiated once per application, rather than per-use. See https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient
+        private static readonly HttpClient _httpClient = new HttpClient();
+
         private static Configuration _configuration;
         private static Service _service;
 
@@ -12,7 +16,7 @@ namespace Demo
         {
             // Initialize Configuration and OpenMovieDatabase Service
             _configuration = new Configuration("your-api-key-here");
-            _service = new Service(_configuration);
+            _service = new Service(_httpClient, _configuration);
 
             Console.WriteLine("- Searching for Interstellar...\n");
             GetSingleMovieDemoAsync("interstellar");

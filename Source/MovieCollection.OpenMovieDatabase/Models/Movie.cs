@@ -48,7 +48,7 @@ namespace MovieCollection.OpenMovieDatabase.Models
         public string Poster { get; set; }
 
         [JsonProperty("Ratings")]
-        public IList<Rating> Ratings { get; set; }
+        public IEnumerable<Rating> Ratings { get; set; }
 
         [JsonProperty("Metascore")]
         public string Metascore { get; set; }

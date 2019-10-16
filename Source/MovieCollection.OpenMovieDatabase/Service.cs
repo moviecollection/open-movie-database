@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,13 +12,16 @@ namespace MovieCollection.OpenMovieDatabase
 {
     public class Service : IService
     {
+        private readonly HttpClient _httpClient;
         private readonly Configuration _configuration;
         private readonly JsonSerializerSettings _defaultJsonSettings;
 
-        public Service(Configuration configuration)
+        public Service(HttpClient httpClient, Configuration configuration)
             : base()
         {
-            _configuration = configuration;
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+
             _defaultJsonSettings = new JsonSerializerSettings();
 
             if (_configuration.ConvertNotAvailableToNull)
@@ -33,11 +38,11 @@ namespace MovieCollection.OpenMovieDatabase
             };
         }
 
-        private string GetParametersString(IEnumerable<UrlParameter> parameters)
+        private static string GetParametersString(IEnumerable<UrlParameter> parameters)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            foreach (UrlParameter item in parameters)
+            foreach (var item in parameters)
             {
                 builder.Append(builder.Length == 0 ? "?" : "&");
                 builder.Append(item.ToString());
@@ -61,7 +66,10 @@ namespace MovieCollection.OpenMovieDatabase
                 url += GetParametersString(union);
             }
 
-            return await Helpers.DownloadJsonAsync(url);
+            using (var response = await _httpClient.GetAsync(new Uri(url)))
+            {
+                return await response.Content.ReadAsStringAsync();
+            }
         }
 
         public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, Enums.PlotType plot = Enums.PlotType.Short)
@@ -161,7 +169,7 @@ namespace MovieCollection.OpenMovieDatabase
             var parameters = new List<UrlParameter>()
             {
                 new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
-                new UrlParameter("season", season.ToString())
+                new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture))
             };
 
             // Send Request And Get Json
@@ -184,8 +192,8 @@ namespace MovieCollection.OpenMovieDatabase
             var parameters = new List<UrlParameter>()
             {
                 new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
-                new UrlParameter("season", season.ToString()),
-                new UrlParameter("episode", episode.ToString())
+                new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture)),
+                new UrlParameter("episode", episode.ToString(CultureInfo.InvariantCulture))
             };
 
             // Send Request And Get Json

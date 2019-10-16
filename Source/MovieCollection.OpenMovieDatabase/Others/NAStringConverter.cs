@@ -14,7 +14,7 @@ namespace MovieCollection.OpenMovieDatabase.Converters
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            if (reader.Value == null)
+            if (reader is null || reader.Value is null)
             {
                 return null;
             }

@@ -12,6 +12,16 @@
         public UrlParameter(string key, object value)
             : base()
         {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new System.ArgumentException("Key cannot be null or whitespace.", nameof(key));
+            }
+
+            if (value is null)
+            {
+                throw new System.ArgumentNullException(nameof(value));
+            }
+
             Key = key;
             Value = value.ToString();
         }
