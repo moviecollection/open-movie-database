@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.OpenMovieDatabase
 {
-    public class Service : IService
+    public class OpenMovieDatabaseService : IService
     {
         private readonly HttpClient _httpClient;
-        private readonly Configuration _configuration;
+        private readonly OpenMovieDatabaseConfiguration _configuration;
         private readonly JsonSerializerSettings _defaultJsonSettings;
 
-        public Service(HttpClient httpClient, Configuration configuration)
+        public OpenMovieDatabaseService(HttpClient httpClient, OpenMovieDatabaseConfiguration configuration)
             : base()
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));

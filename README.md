@@ -26,13 +26,13 @@ Install-Package MovieCollection.OpenMovieDatabase -PreRelease
 private static readonly HttpClient httpClient = new HttpClient();
 ```
 
-2. Initialize `Configuration` and Open Movie Database `Service`:
+2. Initialize `OpenMovieDatabaseConfiguration` and `OpenMovieDatabaseService`:
 ```csharp
 private async void SearchSingleMovie()
 {
-    // Initialize Configuration and OpenMovieDatabase Service
-    var configuration = new MovieCollection.OpenMovieDatabase.Configuration("your-api-key-here");
-    var service = new MovieCollection.OpenMovieDatabase.Service(httpClient, configuration);
+    // Initialize Configuration and Service
+    var configuration = new OpenMovieDatabaseConfiguration("your-api-key-here");
+    var service = new OpenMovieDatabaseService(httpClient, configuration);
 
     var movie = await service.SearchMovieAsync("interstellar");
 
@@ -61,9 +61,9 @@ Metascore: 74
 ```csharp
 private async void SearchMoviesAsync()
 {
-    // Initialize Configuration and OpenMovieDatabase Service
-    var configuration = new MovieCollection.OpenMovieDatabase.Configuration("your-api-key-here");
-    var service = new MovieCollection.OpenMovieDatabase.Service(httpClient, configuration);
+    // Initialize Configuration and Service
+    var configuration = new OpenMovieDatabaseConfiguration("your-api-key-here");
+    var service = new OpenMovieDatabaseService(httpClient, configuration);
 
     var movies = await service.SearchMoviesAsync("three colors");
 
@@ -99,6 +99,10 @@ ImdbId: tt0111507
 When a property value is not available Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert every `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `Configuration` object.
 
 ## Change log
+**v1.0.0-alpha.5**
+- Rename `Service` to `OpenMovieDatabaseService`.
+- Rename `Configuration` to `OpenMovieDatabaseConfiguration`.
+
 **v1.0.0-alpha.4**
 - Replace `HttpWebRequest` with `HttpClient`.
 

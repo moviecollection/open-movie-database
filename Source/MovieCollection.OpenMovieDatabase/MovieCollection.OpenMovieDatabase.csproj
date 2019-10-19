@@ -8,11 +8,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/peymanr34/open-movie-database</RepositoryUrl>
     <PackageProjectUrl>https://github.com/peymanr34/open-movie-database</PackageProjectUrl>
-    <PackageReleaseNotes>alpha.4</PackageReleaseNotes>
+    <PackageReleaseNotes>alpha.5</PackageReleaseNotes>
     <PackageTags>movie, series, api, wrapper, omdb</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.0.0-alpha.4</Version>
+    <Version>1.0.0-alpha.5</Version>
     <InformationalVersion>This is a prerelease package</InformationalVersion>
   </PropertyGroup>
 
