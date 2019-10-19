@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace MovieCollection.OpenMovieDatabase
 {
-    public interface IService
+    public interface IOpenMovieDatabaseService
     {
         Task<Movie> SearchMovieByImdbIdAsync(string imdbId);
         Task<Movie> SearchMovieAsync(string query, string year = "", MovieType type = MovieType.NotSpecified, PlotType plot = PlotType.Short);

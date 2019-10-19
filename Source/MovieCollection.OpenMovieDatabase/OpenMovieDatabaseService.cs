@@ -1,16 +1,15 @@
-﻿using MovieCollection.OpenMovieDatabase.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MovieCollection.OpenMovieDatabase.Models;
+using Newtonsoft.Json;
 
 namespace MovieCollection.OpenMovieDatabase
 {
-    public class OpenMovieDatabaseService : IService
+    public class OpenMovieDatabaseService : IOpenMovieDatabaseService
     {
         private readonly HttpClient _httpClient;
         private readonly OpenMovieDatabaseConfiguration _configuration;
@@ -30,14 +29,6 @@ namespace MovieCollection.OpenMovieDatabase
             }
         }
 
-        private UrlParameter[] GetConfigParameters()
-        {
-            return new UrlParameter[]
-            {
-                new UrlParameter("apikey", _configuration.APIKey)
-            };
-        }
-
         private static string GetParametersString(IEnumerable<UrlParameter> parameters)
         {
             var builder = new StringBuilder();
@@ -50,21 +41,21 @@ namespace MovieCollection.OpenMovieDatabase
             return builder.ToString();
         }
 
-        private async Task<string> GetJsonAsync(IEnumerable<UrlParameter> parameters = null)
+        private async Task<string> GetJsonAsync(IEnumerable<UrlParameter> requestParameters = null)
         {
             string url = _configuration.BaseAddress;
 
-            var configParms = GetConfigParameters();
+            var parameters = new List<UrlParameter>()
+            {
+                new UrlParameter("apikey", _configuration.APIKey)
+            };
 
-            if (parameters == null)
+            if (requestParameters != null)
             {
-                url += GetParametersString(configParms);
+                parameters.AddRange(requestParameters);
             }
-            else
-            {
-                var union = parameters.Union(configParms);
-                url += GetParametersString(union);
-            }
+
+            url += GetParametersString(parameters);
 
             using (var response = await _httpClient.GetAsync(new Uri(url)))
             {
