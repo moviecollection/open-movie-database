@@ -1,4 +1,5 @@
 ﻿[![Nuget Version](https://img.shields.io/nuget/v/MovieCollection.OpenMovieDatabase.svg?style=flat)](https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase)
+[![Nuget Downloads](https://img.shields.io/nuget/dt/MovieCollection.OpenMovieDatabase?color=red)](https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase)
 [![License](https://img.shields.io/github/license/peymanr34/open-movie-database.svg?style=flat)](LICENSE)
 
 # Open Movie Database API ![UNOFFICIAL](https://img.shields.io/badge/UNOFFICIAL-red)
@@ -18,21 +19,31 @@ Install-Package MovieCollection.OpenMovieDatabase -PreRelease
 ```
 
 ## How to search for a single movie
-
+1. Define an application wide `HttpClient` if you haven't already.
 ```csharp
-// Initialize Configuration and OpenMovieDatabase Service
-var configuration = new MovieCollection.OpenMovieDatabase.Configuration("your-api-key-here");
-var service = new MovieCollection.OpenMovieDatabase.Service(configuration);
+// HttpClient is intended to be instantiated once per application, rather than per-use.
+// See https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient
+private static readonly HttpClient httpClient = new HttpClient();
+```
 
-var movie = await service.SearchMovieAsync("interstellar");
+2. Initialize `Configuration` and Open Movie Database `Service`:
+```csharp
+private async void SearchSingleMovie()
+{
+    // Initialize Configuration and OpenMovieDatabase Service
+    var configuration = new MovieCollection.OpenMovieDatabase.Configuration("your-api-key-here");
+    var service = new MovieCollection.OpenMovieDatabase.Service(httpClient, configuration);
 
-Console.WriteLine("Title: {0}", movie.Title);
-Console.WriteLine("Year: {0}", movie.Year);
-Console.WriteLine("Type: {0}", movie.Type);
-Console.WriteLine("ImdbId: {0}", movie.ImdbId);
-Console.WriteLine("ImdbRating: {0}", movie.ImdbRating);
-Console.WriteLine("ImdbVotes: {0}", movie.ImdbVotes);
-Console.WriteLine("Metascore: {0}", movie.Metascore);
+    var movie = await service.SearchMovieAsync("interstellar");
+
+    Console.WriteLine("Title: {0}", movie.Title);
+    Console.WriteLine("Year: {0}", movie.Year);
+    Console.WriteLine("Type: {0}", movie.Type);
+    Console.WriteLine("ImdbId: {0}", movie.ImdbId);
+    Console.WriteLine("ImdbRating: {0}", movie.ImdbRating);
+    Console.WriteLine("ImdbVotes: {0}", movie.ImdbVotes);
+    Console.WriteLine("Metascore: {0}", movie.Metascore);
+}
 ```
 ### Result:
 ```
@@ -48,19 +59,22 @@ Metascore: 74
 ## How to search for movies
 
 ```csharp
-// Initialize Configuration and OpenMovieDatabase Service
-var configuration = new MovieCollection.OpenMovieDatabase.Configuration("your-api-key-here");
-var service = new MovieCollection.OpenMovieDatabase.Service(configuration);
-
-var movies = await service.SearchMoviesAsync("three colors");
-
-foreach (var item in movies.Items)
+private async void SearchMoviesAsync()
 {
-    Console.WriteLine("Title: {0}", item.Title);
-    Console.WriteLine("Year: {0}", item.Year);
-    Console.WriteLine("Type: {0}", item.Type);
-    Console.WriteLine("ImdbId: {0}", item.ImdbId);
-    Console.WriteLine("******************************");
+    // Initialize Configuration and OpenMovieDatabase Service
+    var configuration = new MovieCollection.OpenMovieDatabase.Configuration("your-api-key-here");
+    var service = new MovieCollection.OpenMovieDatabase.Service(httpClient, configuration);
+
+    var movies = await service.SearchMoviesAsync("three colors");
+
+    foreach (var item in movies.Items)
+    {
+        Console.WriteLine("Title: {0}", item.Title);
+        Console.WriteLine("Year: {0}", item.Year);
+        Console.WriteLine("Type: {0}", item.Type);
+        Console.WriteLine("ImdbId: {0}", item.ImdbId);
+        Console.WriteLine("******************************");
+    }
 }
 ```
 ### Result:
@@ -82,9 +96,12 @@ ImdbId: tt0111507
 ```
 
 ## Convert N/A to null
-When a property value is not available Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert any `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `Configuration` object.
+When a property value is not available Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert every `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `Configuration` object.
 
 ## Change log
+**v1.0.0-alpha.4**
+- Replace `HttpWebRequest` with `HttpClient`.
+
 **v1.0.0-alpha.3**
 
 Rename enums due to code quality [CA1717](https://docs.microsoft.com/en-us/visualstudio/code-quality/ca1717-only-flagsattribute-enums-should-have-plural-names) rule:
@@ -98,8 +115,10 @@ Rename enums due to code quality [CA1717](https://docs.microsoft.com/en-us/visua
 - First alpha release.
 
 ## Acknowledgments
-
 Special thanks to [Open Movie Database](https://www.omdbapi.com) for providing free API services. 
+
+## Open Movie Database API License
+Please read Open Movie Database API license [here](https://www.omdbapi.com).
 
 ## License
 This project is licensed under the [MIT License](LICENSE).

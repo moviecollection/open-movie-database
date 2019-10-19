@@ -8,11 +8,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/peymanr34/open-movie-database</RepositoryUrl>
     <PackageProjectUrl>https://github.com/peymanr34/open-movie-database</PackageProjectUrl>
-    <PackageReleaseNotes>alpha.3</PackageReleaseNotes>
+    <PackageReleaseNotes>alpha.4</PackageReleaseNotes>
     <PackageTags>movie, series, api, wrapper, omdb</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.0.0-alpha.3</Version>
+    <Version>1.0.0-alpha.4</Version>
     <InformationalVersion>This is a prerelease package</InformationalVersion>
   </PropertyGroup>
 
@@ -22,11 +22,14 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
