@@ -8,11 +8,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/peymanr34/open-movie-database</RepositoryUrl>
     <PackageProjectUrl>https://github.com/peymanr34/open-movie-database</PackageProjectUrl>
-    <PackageReleaseNotes>v1.0.0-beta.1</PackageReleaseNotes>
+    <PackageReleaseNotes>v1.0.0-beta.2</PackageReleaseNotes>
     <PackageTags>movie, series, api, wrapper, omdb</PackageTags>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>1.0.0-beta.1</Version>
+    <Version>1.0.0-beta.2</Version>
     <InformationalVersion>This is a prerelease package</InformationalVersion>
   </PropertyGroup>
 
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

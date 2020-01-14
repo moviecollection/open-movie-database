@@ -1,8 +1,8 @@
-﻿[![Nuget Version](https://img.shields.io/nuget/v/MovieCollection.OpenMovieDatabase.svg?style=flat)](https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase)
-[![Nuget Downloads](https://img.shields.io/nuget/dt/MovieCollection.OpenMovieDatabase?color=red)](https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase)
-[![License](https://img.shields.io/github/license/peymanr34/open-movie-database.svg?style=flat)](LICENSE)
+﻿[![Nuget Version][nuget-version-badge]][nuget]
+[![Nuget Downloads][nuget-downloads-badge]][nuget]
+[![License][license-badge]](LICENSE)
 
-# Open Movie Database API ![UNOFFICIAL](https://img.shields.io/badge/UNOFFICIAL-red)
+# Open Movie Database API ![UNOFFICIAL][unofficial-badge]
 Minimal implementation of Open Movie Database API
 
 ## Target frameworks
@@ -14,7 +14,7 @@ Minimal implementation of Open Movie Database API
 
 ## Installing
 Enter following command in your ```NuGet Package Manager```:
-```
+```powershell
 Install-Package MovieCollection.OpenMovieDatabase -PreRelease
 ```
 
@@ -126,3 +126,9 @@ Please read Open Movie Database API license [here](https://www.omdbapi.com).
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
+
+[nuget]: https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase
+[license-badge]: https://img.shields.io/github/license/peymanr34/open-movie-database.svg?style=flat
+[unofficial-badge]: https://img.shields.io/badge/UNOFFICIAL-red
+[nuget-version-badge]: https://img.shields.io/nuget/v/MovieCollection.OpenMovieDatabase.svg?style=flat
+[nuget-downloads-badge]: https://img.shields.io/nuget/dt/MovieCollection.OpenMovieDatabase?color=red

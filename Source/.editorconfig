@@ -119,9 +119,6 @@ csharp_preserve_single_line_blocks = true
 # VB Coding Conventions       #
 ###############################
 
-# CA2007: Consider calling ConfigureAwait on the awaited task
-dotnet_diagnostic.CA2007.severity = silent
-
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = silent
 

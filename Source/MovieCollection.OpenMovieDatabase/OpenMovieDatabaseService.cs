@@ -57,9 +57,9 @@ namespace MovieCollection.OpenMovieDatabase
 
             url += GetParametersString(parameters);
 
-            using (var response = await _httpClient.GetAsync(new Uri(url)))
+            using (var response = await _httpClient.GetAsync(new Uri(url)).ConfigureAwait(false))
             {
-                return await response.Content.ReadAsStringAsync();
+                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
 
@@ -84,13 +84,13 @@ namespace MovieCollection.OpenMovieDatabase
             }
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters);
+            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
-            if (result.Response == false)
+            if (!result.Response)
             {
                 throw new Exception(result.Error);
             }
@@ -106,13 +106,13 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters);
+            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
-            if (result.Response == false)
+            if (!result.Response)
             {
                 throw new Exception(result.Error);
             }
@@ -141,13 +141,13 @@ namespace MovieCollection.OpenMovieDatabase
             }
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters);
+            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
-            if (result.Response == false)
+            if (!result.Response)
             {
                 throw new Exception(result.Error);
             }
@@ -164,13 +164,13 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters);
+            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
-            if (result.Response == false)
+            if (!result.Response)
             {
                 throw new Exception(result.Error);
             }
@@ -188,13 +188,13 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters);
+            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
             // Throw an API Related Error 
-            if (result.Response == false)
+            if (!result.Response)
             {
                 throw new Exception(result.Error);
             }
