@@ -57,10 +57,11 @@ namespace MovieCollection.OpenMovieDatabase
 
             url += GetParametersString(parameters);
 
-            using (var response = await _httpClient.GetAsync(new Uri(url)).ConfigureAwait(false))
-            {
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
+            using var response = await _httpClient.GetAsync(new Uri(url))
+                .ConfigureAwait(false);
+
+            return await response.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
 
         public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, Enums.PlotType plot = Enums.PlotType.Short)
@@ -84,7 +85,8 @@ namespace MovieCollection.OpenMovieDatabase
             }
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
+            string json = await GetJsonAsync(parameters)
+                .ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
@@ -106,7 +108,8 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
+            string json = await GetJsonAsync(parameters)
+                .ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
@@ -141,7 +144,8 @@ namespace MovieCollection.OpenMovieDatabase
             }
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
+            string json = await GetJsonAsync(parameters)
+                .ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
@@ -164,7 +168,8 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
+            string json = await GetJsonAsync(parameters)
+                .ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
@@ -188,7 +193,8 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Send Request And Get Json
-            string json = await GetJsonAsync(parameters).ConfigureAwait(false);
+            string json = await GetJsonAsync(parameters)
+                .ConfigureAwait(false);
 
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);

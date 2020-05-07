@@ -6,6 +6,7 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <IncludeSymbols>true</IncludeSymbols>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -17,7 +18,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>movie; series; api; wrapper; omdb</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>Minimal implementation of Open Movie Database API</Description>
+    <Description>Unofficial implementation of Open Movie Database API</Description>
     <RepositoryUrl>https://github.com/peymanr34/open-movie-database</RepositoryUrl>
     <PackageProjectUrl>https://github.com/peymanr34/open-movie-database</PackageProjectUrl>
   </PropertyGroup>
