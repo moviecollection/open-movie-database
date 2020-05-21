@@ -1,6 +1,7 @@
-﻿using MovieCollection.OpenMovieDatabase;
-using System;
+﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
+using MovieCollection.OpenMovieDatabase;
 
 namespace Demo
 {
@@ -12,25 +13,25 @@ namespace Demo
         private static OpenMovieDatabaseConfiguration _configuration;
         private static OpenMovieDatabaseService _service;
 
-        private static void Main()
+        private static async Task Main()
         {
             // Initialize Configuration and OpenMovieDatabase Service
             _configuration = new OpenMovieDatabaseConfiguration("your-api-key-here");
             _service = new OpenMovieDatabaseService(_httpClient, _configuration);
 
             Console.WriteLine("- Searching for Interstellar...\n");
-            GetSingleMovieDemoAsync("interstellar");
+            await GetSingleMovieDemoAsync("interstellar");
 
             Console.WriteLine("\n******************************\n");
 
             Console.WriteLine("- Searching for Three Colors...\n");
-            GetMoviesDemoAsync("three colors");
+            await GetMoviesDemoAsync("three colors");
 
             // Wait for user to exit
             Console.ReadKey();
         }
 
-        private static async void GetSingleMovieDemoAsync(string query)
+        private static async Task GetSingleMovieDemoAsync(string query)
         {
             var item = await _service.SearchMovieAsync(query);
 
@@ -43,7 +44,7 @@ namespace Demo
             Console.WriteLine("Metascore: {0}", item.Metascore);
         }
 
-        private static async void GetMoviesDemoAsync(string query)
+        private static async Task GetMoviesDemoAsync(string query)
         {
             var items = await _service.SearchMoviesAsync(query);
 
