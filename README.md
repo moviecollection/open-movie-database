@@ -1,8 +1,7 @@
 ﻿[![Nuget Version][nuget-ver-badge]][nuget]
 [![Nuget Downloads][nuget-dl-badge]][nuget]
-[![License][license-badge]](LICENSE)
 
-# Open Movie Database API ![UNOFFICIAL][unofficial-badge]
+# Open Movie Database API
 Unofficial implementation of Open Movie Database API.
 
 ## Target frameworks
@@ -111,7 +110,5 @@ Please read Open Movie Database API license [here](https://www.omdbapi.com).
 This project is licensed under the [MIT License](LICENSE).
 
 [nuget]: https://www.nuget.org/packages/MovieCollection.OpenMovieDatabase
-[license-badge]: https://img.shields.io/github/license/peymanr34/open-movie-database.svg?style=flat
-[unofficial-badge]: https://img.shields.io/badge/UNOFFICIAL-red
 [nuget-ver-badge]: https://img.shields.io/nuget/v/MovieCollection.OpenMovieDatabase.svg?style=flat
 [nuget-dl-badge]: https://img.shields.io/nuget/dt/MovieCollection.OpenMovieDatabase?color=red
