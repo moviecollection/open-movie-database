@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace MovieCollection.OpenMovieDatabase.Models
 {
@@ -68,27 +68,73 @@ namespace MovieCollection.OpenMovieDatabase.Models
         [JsonProperty("DVD")]
         public string DVD { get; set; }
 
-        // For Movies Only ----------------------------------------
+        /// <summary>
+        /// Gets or sets movie boxOffice.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for movies.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("BoxOffice")]
         public string BoxOffice { get; set; }
 
+        /// <summary>
+        /// Gets or sets movie production.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for movies.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("Production")]
         public string Production { get; set; }
 
+        /// <summary>
+        /// Gets or sets movie website.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for movies.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("Website")]
         public string Website { get; set; }
 
-        // For Episodes Only -------------------------------------
+        /// <summary>
+        /// Gets or sets season number.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for episodes.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("Season")]
         public string Season { get; set; }
 
+        /// <summary>
+        /// Gets or sets episode number.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for episodes.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("Episode")]
         public string Episode { get; set; }
 
+        /// <summary>
+        /// Gets or sets id of the series.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for episodes.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("seriesID")]
         public string SeriesId { get; set; }
 
-        // For Series Only -------------------------------------
+        /// <summary>
+        /// Gets or sets total season count of the series.
+        /// </summary>
+        /// <remarks>
+        /// This value is only available for series.
+        /// Please check <see cref="Type"/> for availability.
+        /// </remarks>
         [JsonProperty("totalSeasons")]
         public string TotalSeasons { get; set; }
     }

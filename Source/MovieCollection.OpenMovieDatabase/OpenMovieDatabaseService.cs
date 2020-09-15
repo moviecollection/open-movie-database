@@ -9,12 +9,20 @@ using Newtonsoft.Json;
 
 namespace MovieCollection.OpenMovieDatabase
 {
+    /// <summary>
+    /// The <c>OpenMovieDatabaseService</c> Class.
+    /// </summary>
     public class OpenMovieDatabaseService : IOpenMovieDatabaseService
     {
         private readonly HttpClient _httpClient;
         private readonly OpenMovieDatabaseConfiguration _configuration;
         private readonly JsonSerializerSettings _defaultJsonSettings;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpenMovieDatabaseService"/> class.
+        /// </summary>
+        /// <param name="httpClient">An instance of <c>HttpClient</c>.</param>
+        /// <param name="configuration">An instance of <see cref="OpenMovieDatabaseConfiguration"/>.</param>
         public OpenMovieDatabaseService(HttpClient httpClient, OpenMovieDatabaseConfiguration configuration)
             : base()
         {
@@ -29,41 +37,7 @@ namespace MovieCollection.OpenMovieDatabase
             }
         }
 
-        private static string GetParametersString(IEnumerable<UrlParameter> parameters)
-        {
-            var builder = new StringBuilder();
-
-            foreach (var item in parameters)
-            {
-                builder.Append(builder.Length == 0 ? "?" : "&");
-                builder.Append(item.ToString());
-            }
-            return builder.ToString();
-        }
-
-        private async Task<string> GetJsonAsync(IEnumerable<UrlParameter> requestParameters = null)
-        {
-            string url = _configuration.BaseAddress;
-
-            var parameters = new List<UrlParameter>()
-            {
-                new UrlParameter("apikey", _configuration.APIKey)
-            };
-
-            if (requestParameters != null)
-            {
-                parameters.AddRange(requestParameters);
-            }
-
-            url += GetParametersString(parameters);
-
-            using var response = await _httpClient.GetAsync(new Uri(url))
-                .ConfigureAwait(false);
-
-            return await response.Content.ReadAsStringAsync()
-                .ConfigureAwait(false);
-        }
-
+        /// <inheritdoc/>
         public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, Enums.PlotType plot = Enums.PlotType.Short)
         {
             var parameters = new List<UrlParameter>()
@@ -91,7 +65,7 @@ namespace MovieCollection.OpenMovieDatabase
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
-            // Throw an API Related Error 
+            // Throw an API Related Error.
             if (!result.Response)
             {
                 throw new Exception(result.Error);
@@ -100,11 +74,12 @@ namespace MovieCollection.OpenMovieDatabase
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<Movie> SearchMovieByImdbIdAsync(string imdbid)
         {
             var parameters = new List<UrlParameter>()
             {
-                new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid))
+                new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
             };
 
             // Send Request And Get Json
@@ -114,7 +89,7 @@ namespace MovieCollection.OpenMovieDatabase
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
-            // Throw an API Related Error 
+            // Throw an API Related Error.
             if (!result.Response)
             {
                 throw new Exception(result.Error);
@@ -123,6 +98,7 @@ namespace MovieCollection.OpenMovieDatabase
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<Search> SearchMoviesAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, int page = 1)
         {
             var parameters = new List<UrlParameter>()
@@ -150,7 +126,7 @@ namespace MovieCollection.OpenMovieDatabase
             // Deserialize
             var result = JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
 
-            // Throw an API Related Error 
+            // Throw an API Related Error.
             if (!result.Response)
             {
                 throw new Exception(result.Error);
@@ -159,12 +135,13 @@ namespace MovieCollection.OpenMovieDatabase
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<Season> SearchSeasonAsync(string imdbid, int season)
         {
             var parameters = new List<UrlParameter>()
             {
                 new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
-                new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture))
+                new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture)),
             };
 
             // Send Request And Get Json
@@ -174,7 +151,7 @@ namespace MovieCollection.OpenMovieDatabase
             // Deserialize
             var result = JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
 
-            // Throw an API Related Error 
+            // Throw an API Related Error.
             if (!result.Response)
             {
                 throw new Exception(result.Error);
@@ -183,13 +160,14 @@ namespace MovieCollection.OpenMovieDatabase
             return result;
         }
 
+        /// <inheritdoc/>
         public async Task<Movie> SearchEpisodeAsync(string imdbid, int season, int episode)
         {
             var parameters = new List<UrlParameter>()
             {
                 new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
                 new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture)),
-                new UrlParameter("episode", episode.ToString(CultureInfo.InvariantCulture))
+                new UrlParameter("episode", episode.ToString(CultureInfo.InvariantCulture)),
             };
 
             // Send Request And Get Json
@@ -199,13 +177,49 @@ namespace MovieCollection.OpenMovieDatabase
             // Deserialize
             var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
 
-            // Throw an API Related Error 
+            // Throw an API Related Error.
             if (!result.Response)
             {
                 throw new Exception(result.Error);
             }
 
             return result;
+        }
+
+        private static string GetParametersString(IEnumerable<UrlParameter> parameters)
+        {
+            var builder = new StringBuilder();
+
+            foreach (var item in parameters)
+            {
+                builder.Append(builder.Length == 0 ? "?" : "&");
+                builder.Append(item.ToString());
+            }
+
+            return builder.ToString();
+        }
+
+        private async Task<string> GetJsonAsync(IEnumerable<UrlParameter> requestParameters = null)
+        {
+            string url = _configuration.BaseAddress;
+
+            var parameters = new List<UrlParameter>()
+            {
+                new UrlParameter("apikey", _configuration.APIKey),
+            };
+
+            if (requestParameters != null)
+            {
+                parameters.AddRange(requestParameters);
+            }
+
+            url += GetParametersString(parameters);
+
+            using var response = await _httpClient.GetAsync(new Uri(url))
+                .ConfigureAwait(false);
+
+            return await response.Content.ReadAsStringAsync()
+                .ConfigureAwait(false);
         }
     }
 }
