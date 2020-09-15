@@ -1,4 +1,4 @@
-﻿[![Nuget Version][nuget-ver-badge]][nuget]
+[![Nuget Version][nuget-ver-badge]][nuget]
 [![Nuget Downloads][nuget-dl-badge]][nuget]
 
 # Open Movie Database API
@@ -14,11 +14,11 @@ Unofficial implementation of Open Movie Database API.
 ## Installing
 Enter following command in your ```NuGet Package Manager```:
 ```powershell
-Install-Package MovieCollection.OpenMovieDatabase -PreRelease
+Install-Package MovieCollection.OpenMovieDatabase
 ```
 
 ## How to search for a single movie
-1. Define an application wide `HttpClient` if you haven't already.
+1. Define an instance of `HttpClient` if you haven't already.
 ```csharp
 // HttpClient is intended to be instantiated once per application, rather than per-use.
 // See https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient
