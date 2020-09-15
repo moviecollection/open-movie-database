@@ -33,7 +33,7 @@ namespace MovieCollection.OpenMovieDatabase
 
             if (_configuration.ConvertNotAvailableToNull)
             {
-                _defaultJsonSettings.Converters.Add(new Converters.NAStringConverter());
+                _defaultJsonSettings.Converters.Add(new Converters.NotAvailableStringConverter());
             }
         }
 

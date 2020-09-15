@@ -6,7 +6,7 @@ namespace MovieCollection.OpenMovieDatabase.Converters
     /// <summary>
     /// Provides a <see cref="JsonConverter"/> to convert "N/A" values to null.
     /// </summary>
-    public class NAStringConverter : JsonConverter
+    internal class NotAvailableStringConverter : JsonConverter
     {
         /// <inheritdoc/>
         public override bool CanWrite => false;
