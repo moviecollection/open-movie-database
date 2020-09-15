@@ -40,22 +40,22 @@ namespace MovieCollection.OpenMovieDatabase
         /// <inheritdoc/>
         public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, Enums.PlotType plot = Enums.PlotType.Short)
         {
-            var parameters = new List<UrlParameter>()
+            var parameters = new Dictionary<string, string>()
             {
-                new UrlParameter("t", System.Web.HttpUtility.UrlEncode(query)),
-                new UrlParameter("plot", plot),
+                ["t"] = System.Web.HttpUtility.UrlEncode(query),
+                ["plot"] = plot.ToString(),
             };
 
             // Movie Type [movie, series, episode]
             if (type != Enums.MovieType.NotSpecified)
             {
-                parameters.Add(new UrlParameter("type", type));
+                parameters.Add("type", type.ToString());
             }
 
             // Year
             if (!string.IsNullOrEmpty(year) && year.Length == 4)
             {
-                parameters.Add(new UrlParameter("y", year));
+                parameters.Add("y", year);
             }
 
             // Send Request And Get Json
@@ -77,9 +77,9 @@ namespace MovieCollection.OpenMovieDatabase
         /// <inheritdoc/>
         public async Task<Movie> SearchMovieByImdbIdAsync(string imdbid)
         {
-            var parameters = new List<UrlParameter>()
+            var parameters = new Dictionary<string, string>()
             {
-                new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
+                ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
             };
 
             // Send Request And Get Json
@@ -101,22 +101,22 @@ namespace MovieCollection.OpenMovieDatabase
         /// <inheritdoc/>
         public async Task<Search> SearchMoviesAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, int page = 1)
         {
-            var parameters = new List<UrlParameter>()
+            var parameters = new Dictionary<string, string>()
             {
-                new UrlParameter("s", System.Web.HttpUtility.UrlEncode(query)),
-                new UrlParameter("page", page),
+                ["s"] = System.Web.HttpUtility.UrlEncode(query),
+                ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
             // Year
             if (!string.IsNullOrEmpty(year) && year.Length == 4)
             {
-                parameters.Add(new UrlParameter("y", year));
+                parameters.Add("y", year);
             }
 
             // Movie Type [movie, series, episode]
             if (type != Enums.MovieType.NotSpecified)
             {
-                parameters.Add(new UrlParameter("type", type));
+                parameters.Add("type", type.ToString());
             }
 
             // Send Request And Get Json
@@ -138,10 +138,10 @@ namespace MovieCollection.OpenMovieDatabase
         /// <inheritdoc/>
         public async Task<Season> SearchSeasonAsync(string imdbid, int season)
         {
-            var parameters = new List<UrlParameter>()
+            var parameters = new Dictionary<string, string>()
             {
-                new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
-                new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture)),
+                ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
+                ["season"] = season.ToString(CultureInfo.InvariantCulture),
             };
 
             // Send Request And Get Json
@@ -163,11 +163,11 @@ namespace MovieCollection.OpenMovieDatabase
         /// <inheritdoc/>
         public async Task<Movie> SearchEpisodeAsync(string imdbid, int season, int episode)
         {
-            var parameters = new List<UrlParameter>()
+            var parameters = new Dictionary<string, string>()
             {
-                new UrlParameter("i", System.Web.HttpUtility.UrlEncode(imdbid)),
-                new UrlParameter("season", season.ToString(CultureInfo.InvariantCulture)),
-                new UrlParameter("episode", episode.ToString(CultureInfo.InvariantCulture)),
+                ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
+                ["season"] = season.ToString(CultureInfo.InvariantCulture),
+                ["episode"] = episode.ToString(CultureInfo.InvariantCulture),
             };
 
             // Send Request And Get Json
@@ -186,32 +186,24 @@ namespace MovieCollection.OpenMovieDatabase
             return result;
         }
 
-        private static string GetParametersString(IEnumerable<UrlParameter> parameters)
+        private static string GetParametersString(Dictionary<string, string> parameters)
         {
             var builder = new StringBuilder();
 
             foreach (var item in parameters)
             {
                 builder.Append(builder.Length == 0 ? "?" : "&");
-                builder.Append(item.ToString());
+                builder.Append($"{item.Key}={item.Value}");
             }
 
             return builder.ToString();
         }
 
-        private async Task<string> GetJsonAsync(IEnumerable<UrlParameter> requestParameters = null)
+        private async Task<string> GetJsonAsync(Dictionary<string, string> parameters)
         {
             string url = _configuration.BaseAddress;
 
-            var parameters = new List<UrlParameter>()
-            {
-                new UrlParameter("apikey", _configuration.APIKey),
-            };
-
-            if (requestParameters != null)
-            {
-                parameters.AddRange(requestParameters);
-            }
+            parameters.Add("apikey", _configuration.APIKey);
 
             url += GetParametersString(parameters);
 
