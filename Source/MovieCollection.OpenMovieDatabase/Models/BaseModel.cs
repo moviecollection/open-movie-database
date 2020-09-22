@@ -11,7 +11,7 @@ namespace MovieCollection.OpenMovieDatabase.Models
         /// Gets or sets a value indicating whether response was successful.
         /// </summary>
         [JsonProperty("Response")]
-        public bool Response { get; set; }
+        public bool IsSuccess { get; set; }
 
         /// <summary>
         /// Gets or sets error text.

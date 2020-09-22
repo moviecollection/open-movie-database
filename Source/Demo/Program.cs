@@ -46,7 +46,7 @@ namespace Demo
         {
             var item = await _service.SearchMovieAsync(query);
 
-            if (!item.Response)
+            if (!item.IsSuccess)
             {
                 Console.WriteLine("Error: {0}", item.Error);
                 return;
@@ -65,7 +65,7 @@ namespace Demo
         {
             var items = await _service.SearchMoviesAsync(query);
 
-            if (!items.Response)
+            if (!items.IsSuccess)
             {
                 Console.WriteLine("Error: {0}", items.Error);
                 return;
@@ -85,7 +85,7 @@ namespace Demo
         {
             var season = await _service.SearchSeasonAsync(imdbId, seasonNumber);
 
-            if (!season.Response)
+            if (!season.IsSuccess)
             {
                 Console.WriteLine("Error: {0}", season.Error);
                 return;
@@ -112,7 +112,7 @@ namespace Demo
         {
             var episode = await _service.SearchEpisodeAsync(imdbId, seasonNumber, episodeNumber);
 
-            if (!episode.Response)
+            if (!episode.IsSuccess)
             {
                 Console.WriteLine("Error: {0}", episode.Error);
                 return;
