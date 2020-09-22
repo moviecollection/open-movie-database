@@ -14,24 +14,24 @@ Unofficial implementation of Open Movie Database API.
 ## Installing
 Enter following command in your ```NuGet Package Manager```:
 ```powershell
-Install-Package MovieCollection.OpenMovieDatabase
+Install-Package MovieCollection.OpenMovieDatabase -PreRelease
 ```
 
-## How to search for a single movie
-1. Define an instance of `HttpClient` if you haven't already.
+## Search for a single movie
+1. Define an application wide `HttpClient` if you haven't already.
 ```csharp
 // HttpClient is intended to be instantiated once per application, rather than per-use.
 // See https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient
 private static readonly HttpClient httpClient = new HttpClient();
 ```
 
-2. Initialize `OpenMovieDatabaseConfiguration` and `OpenMovieDatabaseService`:
+2. Initialize `OpenMovieDatabaseOptions` and `OpenMovieDatabaseService`:
 ```csharp
-private async void SearchSingleMovie()
+private async Task SearchSingleMovie()
 {
-    // Initialize Configuration and Service
-    var configuration = new OpenMovieDatabaseConfiguration("your-api-key-here");
-    var service = new OpenMovieDatabaseService(httpClient, configuration);
+    // Initialize
+    var options = new OpenMovieDatabaseOptions("your-api-key-here");
+    var service = new OpenMovieDatabaseService(httpClient, options);
 
     var movie = await service.SearchMovieAsync("interstellar");
 
@@ -55,14 +55,14 @@ ImdbVotes: 1,304,706
 Metascore: 74
 ```
 
-## How to search for movies
+## Search for movies
 
 ```csharp
-private async void SearchMoviesAsync()
+private async Task SearchMoviesAsync()
 {
-    // Initialize Configuration and Service
-    var configuration = new OpenMovieDatabaseConfiguration("your-api-key-here");
-    var service = new OpenMovieDatabaseService(httpClient, configuration);
+    // Initialize
+    var options = new OpenMovieDatabaseOptions("your-api-key-here");
+    var service = new OpenMovieDatabaseService(httpClient, options);
 
     var movies = await service.SearchMoviesAsync("three colors");
 
@@ -95,7 +95,7 @@ ImdbId: tt0111507
 ```
 
 ## Convert N/A to null
-When a property value is not available Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert every `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `Configuration` object.
+When a property value is not available, Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert every `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `OpenMovieDatabaseOptions` object.
 
 ## Change log
 Please visit releases page.
