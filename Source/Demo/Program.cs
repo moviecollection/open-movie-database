@@ -10,14 +10,14 @@ namespace Demo
         // HttpClient is intended to be instantiated once per application, rather than per-use. See https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient
         private static readonly HttpClient _httpClient = new HttpClient();
 
-        private static OpenMovieDatabaseConfiguration _configuration;
+        private static OpenMovieDatabaseOptions _options;
         private static OpenMovieDatabaseService _service;
 
         private static async Task Main()
         {
-            // Initialize Configuration and OpenMovieDatabase Service
-            _configuration = new OpenMovieDatabaseConfiguration("your-api-key-here");
-            _service = new OpenMovieDatabaseService(_httpClient, _configuration);
+            // Initialize OpenMovieDatabaseOptions and OpenMovieDatabaseService
+            _options = new OpenMovieDatabaseOptions("your-api-key-here");
+            _service = new OpenMovieDatabaseService(_httpClient, _options);
 
             Console.WriteLine("- Searching for Interstellar...\n");
             await GetSingleMovieDemoAsync("interstellar");

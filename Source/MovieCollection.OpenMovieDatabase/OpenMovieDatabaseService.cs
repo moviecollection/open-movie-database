@@ -15,23 +15,23 @@ namespace MovieCollection.OpenMovieDatabase
     public class OpenMovieDatabaseService : IOpenMovieDatabaseService
     {
         private readonly HttpClient _httpClient;
-        private readonly OpenMovieDatabaseConfiguration _configuration;
+        private readonly OpenMovieDatabaseOptions _options;
         private readonly JsonSerializerSettings _defaultJsonSettings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenMovieDatabaseService"/> class.
         /// </summary>
         /// <param name="httpClient">An instance of <c>HttpClient</c>.</param>
-        /// <param name="configuration">An instance of <see cref="OpenMovieDatabaseConfiguration"/>.</param>
-        public OpenMovieDatabaseService(HttpClient httpClient, OpenMovieDatabaseConfiguration configuration)
+        /// <param name="options">An instance of <see cref="OpenMovieDatabaseOptions"/>.</param>
+        public OpenMovieDatabaseService(HttpClient httpClient, OpenMovieDatabaseOptions options)
             : base()
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _options = options ?? throw new ArgumentNullException(nameof(options));
 
             _defaultJsonSettings = new JsonSerializerSettings();
 
-            if (_configuration.ConvertNotAvailableToNull)
+            if (_options.ConvertNotAvailableToNull)
             {
                 _defaultJsonSettings.Converters.Add(new Converters.NotAvailableStringConverter());
             }
@@ -201,9 +201,9 @@ namespace MovieCollection.OpenMovieDatabase
 
         private async Task<string> GetJsonAsync(Dictionary<string, string> parameters)
         {
-            string url = _configuration.BaseAddress;
+            string url = _options.ApiAddress;
 
-            parameters.Add("apikey", _configuration.APIKey);
+            parameters.Add("apikey", _options.ApiKey);
 
             url += GetParametersString(parameters);
 
