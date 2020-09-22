@@ -47,32 +47,20 @@ namespace MovieCollection.OpenMovieDatabase
                 ["plot"] = plot.ToString(),
             };
 
-            // Movie Type [movie, series, episode]
             if (type != SearchType.NotSpecified)
             {
                 parameters.Add("type", type.ToString());
             }
 
-            // Year
             if (!string.IsNullOrEmpty(year) && year.Length == 4)
             {
                 parameters.Add("y", year);
             }
 
-            // Send Request And Get Json
             string json = await GetJsonAsync(parameters)
                 .ConfigureAwait(false);
 
-            // Deserialize
-            var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
-
-            // Throw an API Related Error.
-            if (!result.Response)
-            {
-                throw new Exception(result.Error);
-            }
-
-            return result;
+            return JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -83,20 +71,10 @@ namespace MovieCollection.OpenMovieDatabase
                 ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
             };
 
-            // Send Request And Get Json
             string json = await GetJsonAsync(parameters)
                 .ConfigureAwait(false);
 
-            // Deserialize
-            var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
-
-            // Throw an API Related Error.
-            if (!result.Response)
-            {
-                throw new Exception(result.Error);
-            }
-
-            return result;
+            return JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -108,32 +86,20 @@ namespace MovieCollection.OpenMovieDatabase
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            // Year
             if (!string.IsNullOrEmpty(year) && year.Length == 4)
             {
                 parameters.Add("y", year);
             }
 
-            // Movie Type [movie, series, episode]
             if (type != SearchType.NotSpecified)
             {
                 parameters.Add("type", type.ToString());
             }
 
-            // Send Request And Get Json
             string json = await GetJsonAsync(parameters)
                 .ConfigureAwait(false);
 
-            // Deserialize
-            var result = JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
-
-            // Throw an API Related Error.
-            if (!result.Response)
-            {
-                throw new Exception(result.Error);
-            }
-
-            return result;
+            return JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -145,20 +111,10 @@ namespace MovieCollection.OpenMovieDatabase
                 ["season"] = season.ToString(CultureInfo.InvariantCulture),
             };
 
-            // Send Request And Get Json
             string json = await GetJsonAsync(parameters)
                 .ConfigureAwait(false);
 
-            // Deserialize
-            var result = JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
-
-            // Throw an API Related Error.
-            if (!result.Response)
-            {
-                throw new Exception(result.Error);
-            }
-
-            return result;
+            return JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -171,20 +127,10 @@ namespace MovieCollection.OpenMovieDatabase
                 ["episode"] = episode.ToString(CultureInfo.InvariantCulture),
             };
 
-            // Send Request And Get Json
             string json = await GetJsonAsync(parameters)
                 .ConfigureAwait(false);
 
-            // Deserialize
-            var result = JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
-
-            // Throw an API Related Error.
-            if (!result.Response)
-            {
-                throw new Exception(result.Error);
-            }
-
-            return result;
+            return JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
         }
 
         private static string GetParametersString(Dictionary<string, string> parameters)

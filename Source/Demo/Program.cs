@@ -46,6 +46,12 @@ namespace Demo
         {
             var item = await _service.SearchMovieAsync(query);
 
+            if (!item.Response)
+            {
+                Console.WriteLine("Error: {0}", item.Error);
+                return;
+            }
+
             Console.WriteLine("Title: {0}", item.Title);
             Console.WriteLine("Year: {0}", item.Year);
             Console.WriteLine("Type: {0}", item.Type);
@@ -58,6 +64,12 @@ namespace Demo
         private static async Task GetMoviesDemoAsync(string query)
         {
             var items = await _service.SearchMoviesAsync(query);
+
+            if (!items.Response)
+            {
+                Console.WriteLine("Error: {0}", items.Error);
+                return;
+            }
 
             foreach (var item in items.Items)
             {
@@ -73,12 +85,18 @@ namespace Demo
         {
             var season = await _service.SearchSeasonAsync(imdbId, seasonNumber);
 
+            if (!season.Response)
+            {
+                Console.WriteLine("Error: {0}", season.Error);
+                return;
+            }
+
             Console.WriteLine("Title: {0}", season.Title);
             Console.WriteLine("SeasonNumber: {0}", season.SeasonNumber);
             Console.WriteLine("TotalSeasons: {0}", season.TotalSeasons);
-            
+
             Console.WriteLine("Episodes:");
-            
+
             foreach (var item in season.Episodes)
             {
                 Console.WriteLine("******************************");
@@ -93,6 +111,12 @@ namespace Demo
         private static async Task GetEpisodeDemoAsync(string imdbId, int seasonNumber, int episodeNumber)
         {
             var episode = await _service.SearchEpisodeAsync(imdbId, seasonNumber, episodeNumber);
+
+            if (!episode.Response)
+            {
+                Console.WriteLine("Error: {0}", episode.Error);
+                return;
+            }
 
             Console.WriteLine("Title: {0}", episode.Title);
             Console.WriteLine("Year: {0}", episode.Year);
