@@ -39,13 +39,21 @@ namespace MovieCollection.OpenMovieDatabase
         }
 
         /// <inheritdoc/>
-        public async Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Short)
+        public async Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Default)
         {
             var parameters = new Dictionary<string, string>()
             {
                 ["t"] = System.Web.HttpUtility.UrlEncode(query),
-                ["plot"] = plot.ToString(),
             };
+
+            if (plot == PlotType.Brief)
+            {
+                parameters.Add("plot", "short");
+            }
+            else if (plot == PlotType.Full)
+            {
+                parameters.Add("plot", "full");
+            }
 
             if (type != SearchType.NotSpecified)
             {

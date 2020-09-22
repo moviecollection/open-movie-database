@@ -6,13 +6,18 @@
     public enum PlotType
     {
         /// <summary>
-        /// Returns short plot.
+        /// Use default settings.
         /// </summary>
-        Short = 0,
+        Default = 0,
 
         /// <summary>
-        /// Returns full plot.
+        /// Returns a short plot.
         /// </summary>
-        Full = 1,
+        Brief = 1,
+
+        /// <summary>
+        /// Returns a full plot.
+        /// </summary>
+        Full = 2,
     }
 }

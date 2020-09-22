@@ -24,7 +24,7 @@ namespace MovieCollection.OpenMovieDatabase
         /// <param name="type">Type of the movie.</param>
         /// <param name="plot">Type of the plot.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Short);
+        Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Default);
 
         /// <summary>
         /// Search for a list of movies.
