@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MovieCollection.OpenMovieDatabase.Enums;
 using Newtonsoft.Json;
 
 namespace MovieCollection.OpenMovieDatabase.Models
@@ -63,7 +64,7 @@ namespace MovieCollection.OpenMovieDatabase.Models
         public string ImdbId { get; set; }
 
         [JsonProperty("Type")]
-        public string Type { get; set; }
+        public MovieType Type { get; set; }
 
         [JsonProperty("DVD")]
         public string DVD { get; set; }

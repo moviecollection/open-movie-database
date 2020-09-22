@@ -1,23 +1,23 @@
 ﻿namespace MovieCollection.OpenMovieDatabase.Enums
 {
     /// <summary>
-    /// Specifies search type.
+    /// Specifies the type of the movie.
     /// </summary>
-    public enum SearchType
+    public enum MovieType
     {
         /// <summary>
-        /// Movie type can be a movie or a series.
-        /// </summary>
-        NotSpecified = -1,
-
-        /// <summary>
-        /// Only return movies.
+        /// The type is a movie.
         /// </summary>
         Movie = 0,
 
         /// <summary>
-        /// Only return series.
+        /// The type is a series.
         /// </summary>
         Series = 1,
+
+        /// <summary>
+        /// The type is an episode.
+        /// </summary>
+        Episode = 2,
     }
 }
