@@ -2,7 +2,7 @@
 
 namespace MovieCollection.OpenMovieDatabase.Models
 {
-    public class Rating : object
+    public class Rating
     {
         [JsonProperty("Source")]
         public string Source { get; set; }

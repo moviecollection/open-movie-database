@@ -5,7 +5,7 @@ namespace MovieCollection.OpenMovieDatabase.Models
     /// <summary>
     /// The <c>BaseModel</c> class.
     /// </summary>
-    public class BaseModel : object
+    public abstract class BaseModel
     {
         /// <summary>
         /// Gets or sets a value indicating whether response was successful.

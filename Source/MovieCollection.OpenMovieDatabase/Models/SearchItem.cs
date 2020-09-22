@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace MovieCollection.OpenMovieDatabase.Models
 {
-    public class SearchItem : object
+    public class SearchItem
     {
         [JsonProperty("Title")]
         public string Title { get; set; }

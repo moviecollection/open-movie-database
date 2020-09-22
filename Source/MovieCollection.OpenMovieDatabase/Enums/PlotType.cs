@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies type of the plot.
     /// </summary>
-    public enum PlotType : int
+    public enum PlotType
     {
         /// <summary>
         /// Returns short plot.
