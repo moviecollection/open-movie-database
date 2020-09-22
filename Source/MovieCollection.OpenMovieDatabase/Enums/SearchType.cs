@@ -3,7 +3,7 @@
     /// <summary>
     /// Specifies movie type for search.
     /// </summary>
-    public enum MovieType : int
+    public enum SearchType
     {
         /// <summary>
         /// Movie type can be a movie or a series.

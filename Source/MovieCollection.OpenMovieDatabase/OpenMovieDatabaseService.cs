@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MovieCollection.OpenMovieDatabase.Enums;
 using MovieCollection.OpenMovieDatabase.Models;
 using Newtonsoft.Json;
 
@@ -38,7 +39,7 @@ namespace MovieCollection.OpenMovieDatabase
         }
 
         /// <inheritdoc/>
-        public async Task<Movie> SearchMovieAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, Enums.PlotType plot = Enums.PlotType.Short)
+        public async Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Short)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -47,7 +48,7 @@ namespace MovieCollection.OpenMovieDatabase
             };
 
             // Movie Type [movie, series, episode]
-            if (type != Enums.MovieType.NotSpecified)
+            if (type != SearchType.NotSpecified)
             {
                 parameters.Add("type", type.ToString());
             }
@@ -99,7 +100,7 @@ namespace MovieCollection.OpenMovieDatabase
         }
 
         /// <inheritdoc/>
-        public async Task<Search> SearchMoviesAsync(string query, string year = "", Enums.MovieType type = Enums.MovieType.NotSpecified, int page = 1)
+        public async Task<Search> SearchMoviesAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, int page = 1)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -114,7 +115,7 @@ namespace MovieCollection.OpenMovieDatabase
             }
 
             // Movie Type [movie, series, episode]
-            if (type != Enums.MovieType.NotSpecified)
+            if (type != SearchType.NotSpecified)
             {
                 parameters.Add("type", type.ToString());
             }
