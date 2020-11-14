@@ -19,5 +19,10 @@
         /// The type is an episode.
         /// </summary>
         Episode = 2,
+
+        /// <summary>
+        /// The type is a game.
+        /// </summary>
+        Game = 3,
     }
 }
