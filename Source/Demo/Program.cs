@@ -16,34 +16,23 @@ namespace Demo
 
         private static async Task Main()
         {
-            // Initialize OpenMovieDatabaseOptions and OpenMovieDatabaseService.
+            // Initialize
             _options = new OpenMovieDatabaseOptions("your-api-key-here");
             _service = new OpenMovieDatabaseService(_httpClient, _options);
 
-            Console.WriteLine("-> Searching for 'Interstellar'...\n");
-            await GetSingleMovieDemoAsync("interstellar");
-
-            Console.WriteLine("\n******************************\n");
-
-            Console.WriteLine("-> Searching for 'Three Colors'...\n");
-            await GetMoviesDemoAsync("three colors");
-
-            Console.WriteLine("\n******************************\n");
-
-            Console.WriteLine("-> Searching for 'Fleabag' - Season 1\n");
-            await GetSeasonDemoAsync("tt5687612", 1);
-
-            Console.WriteLine("\n******************************\n");
-
-            Console.WriteLine("-> Searching for 'Black Books' - Season 2 Episode 1\n");
-            await GetEpisodeDemoAsync("tt0262150", 2, 1);
+            await GetSingleMovieAsync("interstellar");
+            await GetMoviesAsync("three colors");
+            await GetSeasonAsync("tt5687612", 1);
+            await GetEpisodeAsync("tt0262150", 2, 1);
 
             // Wait for user to exit
             Console.ReadKey();
         }
 
-        private static async Task GetSingleMovieDemoAsync(string query)
+        private static async Task GetSingleMovieAsync(string query)
         {
+            Console.WriteLine($"-> Searching for '{query}'...\n");
+
             var item = await _service.SearchMovieAsync(query);
 
             if (!item.IsSuccess)
@@ -59,10 +48,13 @@ namespace Demo
             Console.WriteLine("ImdbRating: {0}", item.ImdbRating);
             Console.WriteLine("ImdbVotes: {0}", item.ImdbVotes);
             Console.WriteLine("Metascore: {0}", item.Metascore);
+            Console.WriteLine("\n******************************\n");
         }
 
-        private static async Task GetMoviesDemoAsync(string query)
+        private static async Task GetMoviesAsync(string query)
         {
+            Console.WriteLine($"-> Searching for '{query}'...\n");
+
             var items = await _service.SearchMoviesAsync(query);
 
             if (!items.IsSuccess)
@@ -79,10 +71,14 @@ namespace Demo
                 Console.WriteLine("ImdbId: {0}", item.ImdbId);
                 Console.WriteLine("******************************");
             }
+            
+            Console.WriteLine("\n******************************\n");
         }
 
-        private static async Task GetSeasonDemoAsync(string imdbId, int seasonNumber)
+        private static async Task GetSeasonAsync(string imdbId, int seasonNumber)
         {
+            Console.WriteLine($"-> Searching for '{imdbId}' - Season {seasonNumber:D2}\n");
+            
             var season = await _service.SearchSeasonAsync(imdbId, seasonNumber);
 
             if (!season.IsSuccess)
@@ -106,12 +102,16 @@ namespace Demo
                 Console.WriteLine("ImdbId: {0}", item.ImdbId);
                 Console.WriteLine("ImdbRating: {0}", item.ImdbRating);
             }
+
+            Console.WriteLine("\n******************************\n");
         }
 
-        private static async Task GetEpisodeDemoAsync(string imdbId, int seasonNumber, int episodeNumber)
+        private static async Task GetEpisodeAsync(string imdbId, int seasonNumber, int episodeNumber)
         {
+            Console.WriteLine($"-> Searching for '{imdbId}' - Season {seasonNumber:D2} Episode {episodeNumber:D2}\n");
+            
             var episode = await _service.SearchEpisodeAsync(imdbId, seasonNumber, episodeNumber);
-
+            
             if (!episode.IsSuccess)
             {
                 Console.WriteLine("Error: {0}", episode.Error);
@@ -123,6 +123,7 @@ namespace Demo
             Console.WriteLine("Type: {0}", episode.Type);
             Console.WriteLine("Season: {0}", episode.Season);
             Console.WriteLine("ImdbId: {0}", episode.ImdbId);
+            Console.WriteLine("\n******************************\n");
         }
     }
 }
