@@ -24,7 +24,7 @@
     -->
 
     <PropertyGroup>
-        <Version>2.0.0-preview.2</Version>
+        <Version>2.0.0-preview.3</Version>
         <Authors>Peyman Mohammadi</Authors>
         <Title>MovieCollection.OpenMovieDatabase</Title>
         <Copyright>© 2018 - 2020 Peyman Mohammadi</Copyright>
