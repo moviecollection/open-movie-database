@@ -65,10 +65,8 @@ namespace MovieCollection.OpenMovieDatabase
                 parameters.Add("y", year);
             }
 
-            string json = await GetJsonAsync(parameters)
+            return await GetJsonAsync<Movie>(parameters)
                 .ConfigureAwait(false);
-
-            return JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -79,10 +77,8 @@ namespace MovieCollection.OpenMovieDatabase
                 ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
             };
 
-            string json = await GetJsonAsync(parameters)
+            return await GetJsonAsync<Movie>(parameters)
                 .ConfigureAwait(false);
-
-            return JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -104,10 +100,8 @@ namespace MovieCollection.OpenMovieDatabase
                 parameters.Add("type", type.ToString());
             }
 
-            string json = await GetJsonAsync(parameters)
+            return await GetJsonAsync<Search>(parameters)
                 .ConfigureAwait(false);
-
-            return JsonConvert.DeserializeObject<Search>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -119,10 +113,8 @@ namespace MovieCollection.OpenMovieDatabase
                 ["season"] = season.ToString(CultureInfo.InvariantCulture),
             };
 
-            string json = await GetJsonAsync(parameters)
+            return await GetJsonAsync<Season>(parameters)
                 .ConfigureAwait(false);
-
-            return JsonConvert.DeserializeObject<Season>(json, _defaultJsonSettings);
         }
 
         /// <inheritdoc/>
@@ -135,10 +127,8 @@ namespace MovieCollection.OpenMovieDatabase
                 ["episode"] = episode.ToString(CultureInfo.InvariantCulture),
             };
 
-            string json = await GetJsonAsync(parameters)
+            return await GetJsonAsync<Movie>(parameters)
                 .ConfigureAwait(false);
-
-            return JsonConvert.DeserializeObject<Movie>(json, _defaultJsonSettings);
         }
 
         private static string GetParametersString(Dictionary<string, string> parameters)
@@ -154,7 +144,7 @@ namespace MovieCollection.OpenMovieDatabase
             return builder.ToString();
         }
 
-        private async Task<string> GetJsonAsync(Dictionary<string, string> parameters)
+        private async Task<T> GetJsonAsync<T>(Dictionary<string, string> parameters)
         {
             string url = _options.ApiAddress;
 
@@ -165,8 +155,10 @@ namespace MovieCollection.OpenMovieDatabase
             using var response = await _httpClient.GetAsync(new Uri(url))
                 .ConfigureAwait(false);
 
-            return await response.Content.ReadAsStringAsync()
+            string json = await response.Content.ReadAsStringAsync()
                 .ConfigureAwait(false);
+
+            return JsonConvert.DeserializeObject<T>(json, _defaultJsonSettings);
         }
     }
 }
