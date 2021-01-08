@@ -7,7 +7,7 @@ Unofficial implementation of Open Movie Database API.
 ## Installing
 You can install this package by entering the following command into your `Package Manager Console`:
 ```powershell
-Install-Package MovieCollection.OpenMovieDatabase -PreRelease
+Install-Package MovieCollection.OpenMovieDatabase
 ```
 
 ## How to use
@@ -53,6 +53,8 @@ Metascore: 74
 
 ## Search for movies
 ```csharp
+// using MovieCollection.OpenMovieDatabase;
+
 var options = new OpenMovieDatabaseOptions("your-api-key-here");
 var service = new OpenMovieDatabaseService(httpClient, options);
 
