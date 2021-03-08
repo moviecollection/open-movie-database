@@ -2,7 +2,8 @@
 
     <PropertyGroup>
         <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -11,7 +12,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <NoWarn>SA1200;NU5105;CA1303;SA1309;SA1101;SA0001;SA1633;CA1055;CA2227</NoWarn>
+        <NoWarn>SA1200;NU5105;CA1303;SA1309;SA1101;CS1591;SA1633;CA1055;CA2227</NoWarn>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisLevel>latest</AnalysisLevel>
     </PropertyGroup>
@@ -22,17 +23,17 @@
     # SA1101: Prefix local calls with this.
     # SA1309: Field names should not begin with underscore.
     # CA1303: Do not pass literals as localized parameters.
-    # SA0001: XML comment analysis is disabled due to project configuration.
+    # CS1591: Missing XML comment for publicly visible type or member.
     # SA1633: The file header is missing or not located at the top of the file.
     # CA1055: Change the return type of method from string to System.Uri.
     # CA2227: Collection properties should be read only.
     -->
 
     <PropertyGroup>
-        <Version>2.0.0</Version>
+        <Version>2.0.1</Version>
         <Authors>Peyman Mohammadi</Authors>
         <Title>MovieCollection.OpenMovieDatabase</Title>
-        <Copyright>© 2018 - 2020 Peyman Mohammadi</Copyright>
+        <Copyright>© 2018 - 2021 Peyman Mohammadi</Copyright>
         <PackageId>MovieCollection.OpenMovieDatabase</PackageId>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>movie; series; api; wrapper; omdb</PackageTags>

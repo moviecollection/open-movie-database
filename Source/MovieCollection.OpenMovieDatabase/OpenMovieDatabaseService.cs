@@ -145,6 +145,7 @@ namespace MovieCollection.OpenMovieDatabase
         }
 
         private async Task<T> GetJsonAsync<T>(Dictionary<string, string> parameters)
+            where T : BaseModel
         {
             string url = _options.ApiAddress;
 
