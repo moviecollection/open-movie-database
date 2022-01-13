@@ -1,5 +1,5 @@
 # Open Movie Database API
-Unofficial implementation of Open Movie Database API.
+Unofficial implementation of Open Movie Database API for .NET
 
 [![Nuget Version][nuget-shield]][nuget]
 [![Nuget Downloads][nuget-shield-dl]][nuget]
@@ -92,14 +92,23 @@ Type: movie
 ImdbId: tt0111507
 ```
 
-Please checkout the `Demo` project for more examples.
+Please check out the `Demo` project for more examples.
 
-## Convert N/A to null
-When a property value is not available, Open Movie Database server returns `"N/A"` as value which is inconvenient. As of `v1.0.0-alpha.2` I defined a custom `JsonConverter` to convert every `"N/A"` to `null`. You can disable this behavior by setting `ConvertNotAvailableToNull = false` in `OpenMovieDatabaseOptions` object.
+## Null Conversion
+When a value is not available the Open Movie Database server returns `"N/A"` instead of `null` which is inconvenient. By default we have a custom `JsonConverter` to convert them to `null`.
+
+You can *disable* this feature by setting the `ConvertNotAvailableToNull` property to `false`.
+
+```csharp
+var options = new OpenMovieDatabaseOptions
+{
+    ConvertNotAvailableToNull = false,
+};
+```
 
 ## Notes
 - Thanks to [Open Movie Database][omdb] for providing free API services. 
-- Please read Open Movie Database [API license][omdb] before using their API.
+- Please read the Open Movie Database [terms of use][omdb-terms] before using their services.
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
@@ -109,3 +118,4 @@ This project is licensed under the [MIT License](LICENSE).
 [nuget-shield-dl]: https://img.shields.io/nuget/dt/MovieCollection.OpenMovieDatabase?label=Downloads&color=red
 
 [omdb]: https://www.omdbapi.com
+[omdb-terms]: https://www.omdbapi.com/legal.htm
