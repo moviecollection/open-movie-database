@@ -76,7 +76,7 @@ namespace MovieCollection.OpenMovieDatabase
             {
                 ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
             };
-            
+
             if (plot == PlotType.Brief)
             {
                 parameters.Add("plot", "short");
