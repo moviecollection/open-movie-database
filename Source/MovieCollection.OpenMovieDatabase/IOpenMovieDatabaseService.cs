@@ -7,6 +7,7 @@ namespace MovieCollection.OpenMovieDatabase
     /// <summary>
     /// The <c>IOpenMovieDatabaseService</c> interface.
     /// </summary>
+    [System.Obsolete("This interface is deprecated. Please use the 'OpenMovieDatabaseService' instead.")]
     public interface IOpenMovieDatabaseService
     {
         /// <summary>
