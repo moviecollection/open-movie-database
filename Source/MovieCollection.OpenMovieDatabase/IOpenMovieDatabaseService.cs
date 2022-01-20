@@ -10,11 +10,12 @@ namespace MovieCollection.OpenMovieDatabase
     public interface IOpenMovieDatabaseService
     {
         /// <summary>
-        /// Searchs for a movie with imdbId.
+        /// Searchs for a movie with imdb id.
         /// </summary>
-        /// <param name="imdbId">The imdbId to search for.</param>
+        /// <param name="imdbId">The imdb id to search for.</param>
+        /// <param name="plot">The plot type.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<Movie> SearchMovieByImdbIdAsync(string imdbId);
+        Task<Movie> SearchMovieByImdbIdAsync(string imdbId, PlotType plot);
 
         /// <summary>
         /// Searchs for a movie.
