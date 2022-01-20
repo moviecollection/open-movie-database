@@ -70,12 +70,21 @@ namespace MovieCollection.OpenMovieDatabase
         }
 
         /// <inheritdoc/>
-        public async Task<Movie> SearchMovieByImdbIdAsync(string imdbid)
+        public async Task<Movie> SearchMovieByImdbIdAsync(string imdbid, PlotType plot = PlotType.Default)
         {
             var parameters = new Dictionary<string, string>()
             {
                 ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
             };
+            
+            if (plot == PlotType.Brief)
+            {
+                parameters.Add("plot", "short");
+            }
+            else if (plot == PlotType.Full)
+            {
+                parameters.Add("plot", "full");
+            }
 
             return await GetJsonAsync<Movie>(parameters)
                 .ConfigureAwait(false);
