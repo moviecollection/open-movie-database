@@ -16,7 +16,7 @@ namespace MovieCollection.OpenMovieDatabase
         /// <param name="imdbId">The imdb id to search for.</param>
         /// <param name="plot">The plot type.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<Movie> SearchMovieByImdbIdAsync(string imdbId, PlotType plot);
+        Task<Movie> SearchMovieByImdbIdAsync(string imdbId, PlotType plot = PlotType.Default);
 
         /// <summary>
         /// Searchs for a movie.

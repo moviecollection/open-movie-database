@@ -32,7 +32,7 @@
     -->
 
     <PropertyGroup>
-        <Version>3.0.0</Version>
+        <Version>3.0.1</Version>
         <Authors>Peyman Mohammadi</Authors>
         <Title>MovieCollection.OpenMovieDatabase</Title>
         <Copyright>© 2018 - 2022 Peyman Mohammadi</Copyright>
