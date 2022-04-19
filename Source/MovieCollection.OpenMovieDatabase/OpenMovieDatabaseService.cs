@@ -13,7 +13,7 @@ namespace MovieCollection.OpenMovieDatabase
     /// <summary>
     /// The <c>OpenMovieDatabaseService</c> Class.
     /// </summary>
-    public class OpenMovieDatabaseService : IOpenMovieDatabaseService
+    public class OpenMovieDatabaseService
     {
         private readonly HttpClient _httpClient;
         private readonly OpenMovieDatabaseOptions _options;
@@ -38,7 +38,14 @@ namespace MovieCollection.OpenMovieDatabase
             }
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Searchs for a movie.
+        /// </summary>
+        /// <param name="query">The movie title to search for.</param>
+        /// <param name="year">The release year of the movie.</param>
+        /// <param name="type">The movie type.</param>
+        /// <param name="plot">The plot type.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Default)
         {
             var parameters = new Dictionary<string, string>()
@@ -68,7 +75,12 @@ namespace MovieCollection.OpenMovieDatabase
             return GetJsonAsync<Movie>(parameters);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Searchs for a movie with imdb id.
+        /// </summary>
+        /// <param name="imdbid">The imdb id to search for.</param>
+        /// <param name="plot">The plot type.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Movie> SearchMovieByImdbIdAsync(string imdbid, PlotType plot = PlotType.Default)
         {
             var parameters = new Dictionary<string, string>()
@@ -88,7 +100,14 @@ namespace MovieCollection.OpenMovieDatabase
             return GetJsonAsync<Movie>(parameters);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Search for a list of movies.
+        /// </summary>
+        /// <param name="query">The movie title to search for.</param>
+        /// <param name="year">The release year of the movie.</param>
+        /// <param name="type">The movie type.</param>
+        /// <param name="page">The results page number.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Search> SearchMoviesAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, int page = 1)
         {
             var parameters = new Dictionary<string, string>()
@@ -110,7 +129,12 @@ namespace MovieCollection.OpenMovieDatabase
             return GetJsonAsync<Search>(parameters);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets season information of a series.
+        /// </summary>
+        /// <param name="imdbid">ImdbId of the series.</param>
+        /// <param name="season">Season number.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Season> SearchSeasonAsync(string imdbid, int season)
         {
             var parameters = new Dictionary<string, string>()
@@ -122,7 +146,13 @@ namespace MovieCollection.OpenMovieDatabase
             return GetJsonAsync<Season>(parameters);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets episode information of a series.
+        /// </summary>
+        /// <param name="imdbid">The imdb id of the series.</param>
+        /// <param name="season">The season number.</param>
+        /// <param name="episode">The episode number.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Movie> SearchEpisodeAsync(string imdbid, int season, int episode)
         {
             var parameters = new Dictionary<string, string>()
