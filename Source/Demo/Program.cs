@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using MovieCollection.OpenMovieDatabase;
+using MovieCollection.OpenMovieDatabase.Models;
 
 namespace Demo
 {
@@ -16,24 +17,56 @@ namespace Demo
 
         private static async Task Main()
         {
-            // Initialize
             _options = new OpenMovieDatabaseOptions("your-api-key-here");
             _service = new OpenMovieDatabaseService(_httpClient, _options);
 
-            await GetSingleMovieAsync("interstellar");
-            await GetMoviesAsync("three colors");
-            await GetSeasonAsync("tt5687612", 1);
-            await GetEpisodeAsync("tt0262150", 2, 1);
-
-            // Wait for user to exit
-            Console.ReadKey();
+            await InitializeMenu();
         }
 
-        private static async Task GetSingleMovieAsync(string query)
+        private static async Task InitializeMenu()
         {
-            Console.WriteLine($"-> Searching for '{query}'...\n");
+Start:
+            Console.Clear();
+            Console.WriteLine("Welcome to the 'Open Movie Database' demo.\n");
 
-            var item = await _service.SearchMovieAsync(query);
+            Console.WriteLine("1. Get Single Movie");
+            Console.WriteLine("2. Get Movies");
+            Console.WriteLine("3. Get Season");
+            Console.WriteLine("4. Get Episode");
+
+            Console.Write("\nPlease select an option: ");
+            int input = Convert.ToInt32(Console.ReadLine());
+
+            Console.Clear();
+
+            var task = input switch
+            {
+                1 => GetSingleMovieAsync(),
+                2 => GetMoviesAsync(),
+                3 => GetSeasonAsync(),
+                4 => GetEpisodeAsync(),
+                _ => null,
+            };
+
+            if (task != null)
+            {
+                await task;
+            }
+
+            Console.WriteLine("\nPress any key to go back to the menu...");
+            Console.ReadKey();
+
+            goto Start;
+        }
+
+        private static async Task GetSingleMovieAsync()
+        {
+            var search = new NewMovieSearch
+            {
+                Query = "Iron Man",
+            };
+
+            var item = await _service.SearchMovieAsync(search.Query);
 
             if (!item.IsSuccess)
             {
@@ -51,11 +84,14 @@ namespace Demo
             Console.WriteLine("\n******************************\n");
         }
 
-        private static async Task GetMoviesAsync(string query)
+        private static async Task GetMoviesAsync()
         {
-            Console.WriteLine($"-> Searching for '{query}'...\n");
+            var search = new NewMoviesSearch
+            {
+                Query = "three colors",
+            };
 
-            var items = await _service.SearchMoviesAsync(query);
+            var items = await _service.SearchMoviesAsync(search);
 
             if (!items.IsSuccess)
             {
@@ -71,15 +107,13 @@ namespace Demo
                 Console.WriteLine("ImdbId: {0}", item.ImdbId);
                 Console.WriteLine("******************************");
             }
-            
+
             Console.WriteLine("\n******************************\n");
         }
 
-        private static async Task GetSeasonAsync(string imdbId, int seasonNumber)
+        private static async Task GetSeasonAsync()
         {
-            Console.WriteLine($"-> Searching for '{imdbId}' - Season {seasonNumber:D2}\n");
-            
-            var season = await _service.SearchSeasonAsync(imdbId, seasonNumber);
+            var season = await _service.SearchSeasonAsync("tt5687612", 1);
 
             if (!season.IsSuccess)
             {
@@ -106,12 +140,10 @@ namespace Demo
             Console.WriteLine("\n******************************\n");
         }
 
-        private static async Task GetEpisodeAsync(string imdbId, int seasonNumber, int episodeNumber)
+        private static async Task GetEpisodeAsync()
         {
-            Console.WriteLine($"-> Searching for '{imdbId}' - Season {seasonNumber:D2} Episode {episodeNumber:D2}\n");
-            
-            var episode = await _service.SearchEpisodeAsync(imdbId, seasonNumber, episodeNumber);
-            
+            var episode = await _service.SearchEpisodeAsync("tt0262150", 2, 1);
+
             if (!episode.IsSuccess)
             {
                 Console.WriteLine("Error: {0}", episode.Error);
