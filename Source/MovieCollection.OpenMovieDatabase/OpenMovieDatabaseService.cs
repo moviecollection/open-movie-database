@@ -66,6 +66,16 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Movie"/> object.</returns>
         public Task<Movie> SearchMovieAsync(NewMovieSearch search)
         {
+            if (search is null)
+            {
+                throw new ArgumentNullException(nameof(search));
+            }
+
+            if (string.IsNullOrEmpty(search.Query))
+            {
+                throw new ArgumentException($"'{search.Query}' cannot be null or empty.", nameof(search));
+            }
+
             var parameters = new Dictionary<string, string>()
             {
                 ["t"] = search.Query,
@@ -85,6 +95,7 @@ namespace MovieCollection.OpenMovieDatabase
                 parameters.Add("type", search.SearchType.ToString());
             }
 
+            // TODO: Consider throwing an exception on invalid years.
             if (!string.IsNullOrEmpty(search.Year) && search.Year.Length == 4)
             {
                 parameters.Add("y", search.Year);
@@ -101,6 +112,11 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Movie> SearchMovieByImdbIdAsync(string imdbid, PlotType plot = PlotType.Default)
         {
+            if (string.IsNullOrEmpty(imdbid))
+            {
+                throw new ArgumentException($"'{nameof(imdbid)}' cannot be null or empty.", nameof(imdbid));
+            }
+
             var parameters = new Dictionary<string, string>()
             {
                 ["i"] = imdbid,
@@ -146,11 +162,22 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Search"/> object.</returns>
         public Task<Search> SearchMoviesAsync(NewMoviesSearch search)
         {
+            if (search is null)
+            {
+                throw new ArgumentNullException(nameof(search));
+            }
+
+            if (string.IsNullOrEmpty(search.Query))
+            {
+                throw new ArgumentException($"'{nameof(search.Query)}' cannot be null or empty.", nameof(search));
+            }
+
             var parameters = new Dictionary<string, string>()
             {
                 ["s"] = search.Query,
             };
 
+            // TODO: Consider throwing an exception on invalid years.
             if (!string.IsNullOrEmpty(search.Year) && search.Year.Length == 4)
             {
                 parameters.Add("y", search.Year);
@@ -177,6 +204,11 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Season> SearchSeasonAsync(string imdbid, int season)
         {
+            if (string.IsNullOrEmpty(imdbid))
+            {
+                throw new ArgumentException($"'{nameof(imdbid)}' cannot be null or empty.", nameof(imdbid));
+            }
+
             var parameters = new Dictionary<string, string>()
             {
                 ["i"] = imdbid,
@@ -195,6 +227,11 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Movie> SearchEpisodeAsync(string imdbid, int season, int episode)
         {
+            if (string.IsNullOrEmpty(imdbid))
+            {
+                throw new ArgumentException($"'{nameof(imdbid)}' cannot be null or empty.", nameof(imdbid));
+            }
+
             var parameters = new Dictionary<string, string>()
             {
                 ["i"] = imdbid,
