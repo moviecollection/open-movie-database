@@ -39,7 +39,7 @@ namespace MovieCollection.OpenMovieDatabase
         }
 
         /// <inheritdoc/>
-        public async Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Default)
+        public Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Default)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -65,12 +65,11 @@ namespace MovieCollection.OpenMovieDatabase
                 parameters.Add("y", year);
             }
 
-            return await GetJsonAsync<Movie>(parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<Movie>(parameters);
         }
 
         /// <inheritdoc/>
-        public async Task<Movie> SearchMovieByImdbIdAsync(string imdbid, PlotType plot = PlotType.Default)
+        public Task<Movie> SearchMovieByImdbIdAsync(string imdbid, PlotType plot = PlotType.Default)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -86,12 +85,11 @@ namespace MovieCollection.OpenMovieDatabase
                 parameters.Add("plot", "full");
             }
 
-            return await GetJsonAsync<Movie>(parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<Movie>(parameters);
         }
 
         /// <inheritdoc/>
-        public async Task<Search> SearchMoviesAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, int page = 1)
+        public Task<Search> SearchMoviesAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, int page = 1)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -109,12 +107,11 @@ namespace MovieCollection.OpenMovieDatabase
                 parameters.Add("type", type.ToString());
             }
 
-            return await GetJsonAsync<Search>(parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<Search>(parameters);
         }
 
         /// <inheritdoc/>
-        public async Task<Season> SearchSeasonAsync(string imdbid, int season)
+        public Task<Season> SearchSeasonAsync(string imdbid, int season)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -122,12 +119,11 @@ namespace MovieCollection.OpenMovieDatabase
                 ["season"] = season.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<Season>(parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<Season>(parameters);
         }
 
         /// <inheritdoc/>
-        public async Task<Movie> SearchEpisodeAsync(string imdbid, int season, int episode)
+        public Task<Movie> SearchEpisodeAsync(string imdbid, int season, int episode)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -136,8 +132,7 @@ namespace MovieCollection.OpenMovieDatabase
                 ["episode"] = episode.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<Movie>(parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<Movie>(parameters);
         }
 
         private static string GetParametersString(Dictionary<string, string> parameters)
