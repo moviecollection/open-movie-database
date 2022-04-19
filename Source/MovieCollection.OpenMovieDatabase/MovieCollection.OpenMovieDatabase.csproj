@@ -32,10 +32,10 @@
     -->
 
     <PropertyGroup>
-        <Version>3.0.1</Version>
+        <Version>4.0.0</Version>
         <Authors>Peyman Mohammadi</Authors>
         <Title>MovieCollection.OpenMovieDatabase</Title>
-        <Copyright>© 2018 - 2022 Peyman Mohammadi</Copyright>
+        <Copyright>© 2022 Peyman Mohammadi</Copyright>
         <PackageId>MovieCollection.OpenMovieDatabase</PackageId>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>movie; series; api; wrapper; omdb</PackageTags>

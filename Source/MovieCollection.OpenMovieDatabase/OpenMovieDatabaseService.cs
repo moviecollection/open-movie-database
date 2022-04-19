@@ -48,28 +48,46 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Movie> SearchMovieAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, PlotType plot = PlotType.Default)
         {
-            var parameters = new Dictionary<string, string>()
+            var search = new NewMovieSearch
             {
-                ["t"] = query,
+                Query = query,
+                Year = year,
+                SearchType = type,
+                PlotType = plot,
             };
 
-            if (plot == PlotType.Brief)
+            return SearchMovieAsync(search);
+        }
+
+        /// <summary>
+        /// Searchs for a movie.
+        /// </summary>
+        /// <param name="search">An instance of the <see cref="NewMovieSearch"/> class.</param>
+        /// <returns>A <see cref="Movie"/> object.</returns>
+        public Task<Movie> SearchMovieAsync(NewMovieSearch search)
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                ["t"] = search.Query,
+            };
+
+            if (search.PlotType == PlotType.Brief)
             {
                 parameters.Add("plot", "short");
             }
-            else if (plot == PlotType.Full)
+            else if (search.PlotType == PlotType.Full)
             {
                 parameters.Add("plot", "full");
             }
 
-            if (type != SearchType.NotSpecified)
+            if (search.SearchType != SearchType.NotSpecified)
             {
-                parameters.Add("type", type.ToString());
+                parameters.Add("type", search.SearchType.ToString());
             }
 
-            if (!string.IsNullOrEmpty(year) && year.Length == 4)
+            if (!string.IsNullOrEmpty(search.Year) && search.Year.Length == 4)
             {
-                parameters.Add("y", year);
+                parameters.Add("y", search.Year);
             }
 
             return GetJsonAsync<Movie>(parameters);
@@ -110,20 +128,42 @@ namespace MovieCollection.OpenMovieDatabase
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<Search> SearchMoviesAsync(string query, string year = "", SearchType type = SearchType.NotSpecified, int page = 1)
         {
-            var parameters = new Dictionary<string, string>()
+            var search = new NewMoviesSearch
             {
-                ["s"] = query,
-                ["page"] = page.ToString(CultureInfo.InvariantCulture),
+                Query = query,
+                Year = year,
+                SearchType = type,
+                Page = page,
             };
 
-            if (!string.IsNullOrEmpty(year) && year.Length == 4)
+            return SearchMoviesAsync(search);
+        }
+
+        /// <summary>
+        /// Search for a list of movies.
+        /// </summary>
+        /// <param name="search">An instance of the <see cref="NewMoviesSearch"/> class.</param>
+        /// <returns>A <see cref="Search"/> object.</returns>
+        public Task<Search> SearchMoviesAsync(NewMoviesSearch search)
+        {
+            var parameters = new Dictionary<string, string>()
             {
-                parameters.Add("y", year);
+                ["s"] = search.Query,
+            };
+
+            if (!string.IsNullOrEmpty(search.Year) && search.Year.Length == 4)
+            {
+                parameters.Add("y", search.Year);
             }
 
-            if (type != SearchType.NotSpecified)
+            if (search.SearchType != SearchType.NotSpecified)
             {
-                parameters.Add("type", type.ToString());
+                parameters.Add("type", search.SearchType.ToString());
+            }
+
+            if (search.Page.HasValue)
+            {
+                parameters.Add("page", search.Page.Value.ToString(CultureInfo.InvariantCulture));
             }
 
             return GetJsonAsync<Search>(parameters);
