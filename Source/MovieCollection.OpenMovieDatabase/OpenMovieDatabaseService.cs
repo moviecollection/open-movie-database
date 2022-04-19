@@ -43,7 +43,7 @@ namespace MovieCollection.OpenMovieDatabase
         {
             var parameters = new Dictionary<string, string>()
             {
-                ["t"] = System.Web.HttpUtility.UrlEncode(query),
+                ["t"] = query,
             };
 
             if (plot == PlotType.Brief)
@@ -74,7 +74,7 @@ namespace MovieCollection.OpenMovieDatabase
         {
             var parameters = new Dictionary<string, string>()
             {
-                ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
+                ["i"] = imdbid,
             };
 
             if (plot == PlotType.Brief)
@@ -95,7 +95,7 @@ namespace MovieCollection.OpenMovieDatabase
         {
             var parameters = new Dictionary<string, string>()
             {
-                ["s"] = System.Web.HttpUtility.UrlEncode(query),
+                ["s"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -118,7 +118,7 @@ namespace MovieCollection.OpenMovieDatabase
         {
             var parameters = new Dictionary<string, string>()
             {
-                ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
+                ["i"] = imdbid,
                 ["season"] = season.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -131,7 +131,7 @@ namespace MovieCollection.OpenMovieDatabase
         {
             var parameters = new Dictionary<string, string>()
             {
-                ["i"] = System.Web.HttpUtility.UrlEncode(imdbid),
+                ["i"] = imdbid,
                 ["season"] = season.ToString(CultureInfo.InvariantCulture),
                 ["episode"] = episode.ToString(CultureInfo.InvariantCulture),
             };
