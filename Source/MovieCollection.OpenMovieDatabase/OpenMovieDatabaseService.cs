@@ -30,6 +30,16 @@ namespace MovieCollection.OpenMovieDatabase
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _options = options ?? throw new ArgumentNullException(nameof(options));
 
+            if (string.IsNullOrEmpty(_options.ApiAddress))
+            {
+                throw new ArgumentException($"'{nameof(_options.ApiAddress)}' cannot be null or empty.", nameof(options));
+            }
+
+            if (string.IsNullOrEmpty(_options.ApiKey))
+            {
+                throw new ArgumentException($"'{nameof(_options.ApiKey)}' cannot be null or empty.", nameof(options));
+            }
+
             _defaultJsonSettings = new JsonSerializerSettings();
 
             if (_options.ConvertNotAvailableToNull)
