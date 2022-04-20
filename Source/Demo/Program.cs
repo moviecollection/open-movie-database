@@ -29,10 +29,10 @@ Start:
             Console.Clear();
             Console.WriteLine("Welcome to the 'Open Movie Database' demo.\n");
 
-            Console.WriteLine("1. Get Single Movie");
-            Console.WriteLine("2. Get Movies");
-            Console.WriteLine("3. Get Season");
-            Console.WriteLine("4. Get Episode");
+            Console.WriteLine("1. Search Single Movie");
+            Console.WriteLine("2. Search Movies");
+            Console.WriteLine("3. Search Season");
+            Console.WriteLine("4. Search Episode");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -66,7 +66,7 @@ Start:
                 Query = "Iron Man",
             };
 
-            var item = await _service.SearchMovieAsync(search.Query);
+            var item = await _service.SearchMovieAsync(search);
 
             if (!item.IsSuccess)
             {
