@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Property names are clear enough.", Scope = "namespaceanddescendants", Target = "MovieCollection.OpenMovieDatabase.Models")]
+[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Property names are clear enough.", Scope = "namespaceanddescendants", Target = "~N:MovieCollection.OpenMovieDatabase.Models")]
