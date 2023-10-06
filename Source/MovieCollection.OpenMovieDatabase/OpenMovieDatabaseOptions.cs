@@ -1,4 +1,6 @@
-﻿namespace MovieCollection.OpenMovieDatabase
+﻿using System.Net.Http.Headers;
+
+namespace MovieCollection.OpenMovieDatabase
 {
     /// <summary>
     /// The <c>OpenMovieDatabaseOptions</c> class.
@@ -44,5 +46,13 @@
         /// You can disable this behavior by setting this property to false.
         /// </remarks>
         public bool ConvertNotAvailableToNull { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name (and version) of the product using this library.
+        /// </summary>
+        /// <remarks>
+        /// This overrides the <see cref="System.Net.Http.HttpClient.DefaultRequestHeaders"/>.
+        /// </remarks>
+        public ProductHeaderValue ProductInformation { get; set; }
     }
 }

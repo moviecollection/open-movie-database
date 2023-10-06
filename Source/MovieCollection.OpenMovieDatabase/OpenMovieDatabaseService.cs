@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using MovieCollection.OpenMovieDatabase.Enums;
@@ -274,7 +275,22 @@ namespace MovieCollection.OpenMovieDatabase
 
             url += GetParametersString(parameters);
 
-            using var response = await _httpClient.GetAsync(new Uri(url))
+            using var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+            return await SendRequestAsync<T>(request)
+                .ConfigureAwait(false);
+        }
+
+        private async Task<T> SendRequestAsync<T>(HttpRequestMessage request)
+        {
+            // Set the user agent if it was explicitly set via the options.
+            // This overrides the default request headers.
+            if (_options.ProductInformation != null)
+            {
+                request.Headers.UserAgent.Add(new ProductInfoHeaderValue(_options.ProductInformation));
+            }
+
+            using var response = await _httpClient.SendAsync(request)
                 .ConfigureAwait(false);
 
             string json = await response.Content.ReadAsStringAsync()
