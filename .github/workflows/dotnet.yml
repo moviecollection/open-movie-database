@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run the Cake script
-      uses: cake-build/cake-action@v1
+      uses: cake-build/cake-action@v2
       with:
         script-path: build.cake
         target: Test
