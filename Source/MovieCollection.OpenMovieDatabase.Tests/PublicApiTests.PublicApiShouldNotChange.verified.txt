@@ -1,0 +1,190 @@
+﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/moviecollection/open-movie-database")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.0", FrameworkDisplayName=".NET Standard 2.0")]
+namespace MovieCollection.OpenMovieDatabase.Enums
+{
+    public enum MovieType
+    {
+        Movie = 0,
+        Series = 1,
+        Episode = 2,
+        Game = 3,
+    }
+    public enum PlotType
+    {
+        Default = 0,
+        Brief = 1,
+        Full = 2,
+    }
+    public enum SearchType
+    {
+        NotSpecified = -1,
+        Movie = 0,
+        Series = 1,
+    }
+}
+namespace MovieCollection.OpenMovieDatabase.Models
+{
+    public abstract class BaseModel
+    {
+        protected BaseModel() { }
+        [Newtonsoft.Json.JsonProperty("Error")]
+        public string Error { get; set; }
+        [Newtonsoft.Json.JsonProperty("Response")]
+        public bool IsSuccess { get; set; }
+    }
+    public class Episode
+    {
+        public Episode() { }
+        [Newtonsoft.Json.JsonProperty("Episode")]
+        public string EpisodeNumber { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdbID")]
+        public string ImdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdbRating")]
+        public string ImdbRating { get; set; }
+        [Newtonsoft.Json.JsonProperty("Released")]
+        public string Released { get; set; }
+        [Newtonsoft.Json.JsonProperty("Title")]
+        public string Title { get; set; }
+    }
+    public class Movie : MovieCollection.OpenMovieDatabase.Models.BaseModel
+    {
+        public Movie() { }
+        [Newtonsoft.Json.JsonProperty("Actors")]
+        public string Actors { get; set; }
+        [Newtonsoft.Json.JsonProperty("Awards")]
+        public string Awards { get; set; }
+        [Newtonsoft.Json.JsonProperty("BoxOffice")]
+        public string BoxOffice { get; set; }
+        [Newtonsoft.Json.JsonProperty("Country")]
+        public string Country { get; set; }
+        [Newtonsoft.Json.JsonProperty("DVD")]
+        public string DVD { get; set; }
+        [Newtonsoft.Json.JsonProperty("Director")]
+        public string Director { get; set; }
+        [Newtonsoft.Json.JsonProperty("Episode")]
+        public string Episode { get; set; }
+        [Newtonsoft.Json.JsonProperty("Genre")]
+        public string Genre { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdbID")]
+        public string ImdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdbRating")]
+        public string ImdbRating { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdbVotes")]
+        public string ImdbVotes { get; set; }
+        [Newtonsoft.Json.JsonProperty("Language")]
+        public string Language { get; set; }
+        [Newtonsoft.Json.JsonProperty("Metascore")]
+        public string Metascore { get; set; }
+        [Newtonsoft.Json.JsonProperty("Plot")]
+        public string Plot { get; set; }
+        [Newtonsoft.Json.JsonProperty("Poster")]
+        public string Poster { get; set; }
+        [Newtonsoft.Json.JsonProperty("Production")]
+        public string Production { get; set; }
+        [Newtonsoft.Json.JsonProperty("Rated")]
+        public string Rated { get; set; }
+        [Newtonsoft.Json.JsonProperty("Ratings")]
+        public System.Collections.Generic.IEnumerable<MovieCollection.OpenMovieDatabase.Models.Rating> Ratings { get; set; }
+        [Newtonsoft.Json.JsonProperty("Released")]
+        public string Released { get; set; }
+        [Newtonsoft.Json.JsonProperty("Runtime")]
+        public string Runtime { get; set; }
+        [Newtonsoft.Json.JsonProperty("Season")]
+        public string Season { get; set; }
+        [Newtonsoft.Json.JsonProperty("seriesID")]
+        public string SeriesId { get; set; }
+        [Newtonsoft.Json.JsonProperty("Title")]
+        public string Title { get; set; }
+        [Newtonsoft.Json.JsonProperty("totalSeasons")]
+        public string TotalSeasons { get; set; }
+        [Newtonsoft.Json.JsonProperty("Type")]
+        public MovieCollection.OpenMovieDatabase.Enums.MovieType Type { get; set; }
+        [Newtonsoft.Json.JsonProperty("Website")]
+        public string Website { get; set; }
+        [Newtonsoft.Json.JsonProperty("Writer")]
+        public string Writer { get; set; }
+        [Newtonsoft.Json.JsonProperty("Year")]
+        public string Year { get; set; }
+    }
+    public class NewMovieSearch
+    {
+        public NewMovieSearch() { }
+        public MovieCollection.OpenMovieDatabase.Enums.PlotType PlotType { get; set; }
+        public string Query { get; set; }
+        public MovieCollection.OpenMovieDatabase.Enums.SearchType SearchType { get; set; }
+        public string Year { get; set; }
+    }
+    public class NewMoviesSearch
+    {
+        public NewMoviesSearch() { }
+        public int? Page { get; set; }
+        public string Query { get; set; }
+        public MovieCollection.OpenMovieDatabase.Enums.SearchType SearchType { get; set; }
+        public string Year { get; set; }
+    }
+    public class Rating
+    {
+        public Rating() { }
+        [Newtonsoft.Json.JsonProperty("Source")]
+        public string Source { get; set; }
+        [Newtonsoft.Json.JsonProperty("Value")]
+        public string Value { get; set; }
+    }
+    public class Search : MovieCollection.OpenMovieDatabase.Models.BaseModel
+    {
+        public Search() { }
+        [Newtonsoft.Json.JsonProperty("Search")]
+        public System.Collections.Generic.IEnumerable<MovieCollection.OpenMovieDatabase.Models.SearchItem> Items { get; set; }
+        [Newtonsoft.Json.JsonProperty("totalResults")]
+        public string TotalResults { get; set; }
+    }
+    public class SearchItem
+    {
+        public SearchItem() { }
+        [Newtonsoft.Json.JsonProperty("imdbID")]
+        public string ImdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("Poster")]
+        public string Poster { get; set; }
+        [Newtonsoft.Json.JsonProperty("Title")]
+        public string Title { get; set; }
+        [Newtonsoft.Json.JsonProperty("Type")]
+        public MovieCollection.OpenMovieDatabase.Enums.MovieType Type { get; set; }
+        [Newtonsoft.Json.JsonProperty("Year")]
+        public string Year { get; set; }
+    }
+    public class Season : MovieCollection.OpenMovieDatabase.Models.BaseModel
+    {
+        public Season() { }
+        [Newtonsoft.Json.JsonProperty("Episodes")]
+        public System.Collections.Generic.IEnumerable<MovieCollection.OpenMovieDatabase.Models.Episode> Episodes { get; set; }
+        [Newtonsoft.Json.JsonProperty("Season")]
+        public string SeasonNumber { get; set; }
+        [Newtonsoft.Json.JsonProperty("Title")]
+        public string Title { get; set; }
+        [Newtonsoft.Json.JsonProperty("totalSeasons")]
+        public string TotalSeasons { get; set; }
+    }
+}
+namespace MovieCollection.OpenMovieDatabase
+{
+    public class OpenMovieDatabaseOptions
+    {
+        public OpenMovieDatabaseOptions() { }
+        public OpenMovieDatabaseOptions(string apiKey) { }
+        public string ApiAddress { get; set; }
+        public string ApiKey { get; set; }
+        public bool ConvertNotAvailableToNull { get; set; }
+        public System.Net.Http.Headers.ProductHeaderValue ProductInformation { get; set; }
+    }
+    public class OpenMovieDatabaseService
+    {
+        public OpenMovieDatabaseService(System.Net.Http.HttpClient httpClient, MovieCollection.OpenMovieDatabase.OpenMovieDatabaseOptions options) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Movie> SearchEpisodeAsync(string imdbid, int season, int episode) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Movie> SearchMovieAsync(MovieCollection.OpenMovieDatabase.Models.NewMovieSearch search) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Movie> SearchMovieAsync(string query, string year = "", MovieCollection.OpenMovieDatabase.Enums.SearchType type = -1, MovieCollection.OpenMovieDatabase.Enums.PlotType plot = 0) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Movie> SearchMovieByImdbIdAsync(string imdbid, MovieCollection.OpenMovieDatabase.Enums.PlotType plot = 0) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Search> SearchMoviesAsync(MovieCollection.OpenMovieDatabase.Models.NewMoviesSearch search) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Search> SearchMoviesAsync(string query, string year = "", MovieCollection.OpenMovieDatabase.Enums.SearchType type = -1, int page = 1) { }
+        public System.Threading.Tasks.Task<MovieCollection.OpenMovieDatabase.Models.Season> SearchSeasonAsync(string imdbid, int season) { }
+    }
+}
