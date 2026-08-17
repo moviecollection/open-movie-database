@@ -30,8 +30,9 @@
 
     <PropertyGroup>
         <Authors>Peyman Mohammadi</Authors>
+        <PackageIcon>icon.png</PackageIcon>
         <Title>MovieCollection.OpenMovieDatabase</Title>
-        <Copyright>© 2022 Peyman Mohammadi</Copyright>
+        <Copyright>© 2026 Peyman Mohammadi</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageId>MovieCollection.OpenMovieDatabase</PackageId>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -44,6 +45,7 @@
 
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\..\Assets\icon.png" Pack="true" PackagePath="\" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
